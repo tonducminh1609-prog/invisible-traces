@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invisible Traces | Art Photography & Environmental Archive</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Tiêu đề nghệ thuật & chữ nội dung truyền thống dễ đọc -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            archDark: {
+              abyss: '#0A0807',
+              surface: '#130F0C',
+              panel: '#1A1410',
+              card: '#241D17',
+              border: '#413222',
+              gold: '#D4AF37',
+              goldLight: '#F7E7B4',
+              text: '#F5ECE1',
+              muted: '#A89781',
+              accent: '#C7633D',
+              verdigris: '#5EA390'
+            },
+            archLight: {
+              abyss: '#F7F2E7',
+              surface: '#FCF9F2',
+              panel: '#EFE5D3',
+              card: '#E5D8BE',
+              border: '#C8B696',
+              gold: '#92681A',
+              goldLight: '#5E430B',
+              text: '#2C2216',
+              muted: '#71624C',
+              accent: '#B24D28',
+              verdigris: '#317060'
+            }
+          },
+          fontFamily: {
+            script: ['"Alex Brush"', 'cursive'],
+            decorative: ['"Cinzel Decorative"', 'serif'],
+            traditional: ['"Lora"', 'serif'],
+            archival: ['"Cormorant Garamond"', 'serif'],
+            mono: ['"Space Mono"', 'monospace']
+          },
+          animation: {
+            'glow-pulse': 'glowPulse 8s ease-in-out infinite alternate',
+            'float-slow': 'floatSlow 14s ease-in-out infinite alternate'
+          },
+          keyframes: {
+            glowPulse: {
+              '0%': { opacity: '0.25', transform: 'scale(1)' },
+              '100%': { opacity: '0.45', transform: 'scale(1.12)' }
+            },
+            floatSlow: {
+              '0%': { transform: 'translateY(0px) rotate(0deg)' },
+              '100%': { transform: 'translateY(-24px) rotate(3deg)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Thanh cuộn tinh tế */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #0A0807;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #413222;
+      border-radius: 4px;
+    }
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37;
+    }
+    html:not(.dark) ::-webkit-scrollbar-track {
+      background: #F7F2E7;
+    }
+    html:not(.dark) ::-webkit-scrollbar-thumb {
+      background: #C8B696;
+      border-radius: 4px;
+    }
+    html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+      background: #92681A;
+    }
+
+    /* Hiệu ứng khung tranh triển lãm mỹ thuật */
+    .art-exhibit-frame {
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), inset 0 0 16px rgba(0, 0, 0, 0.25);
+    }
+    html:not(.dark) .art-exhibit-frame {
+      box-shadow: 0 14px 30px rgba(78, 62, 42, 0.12), inset 0 0 12px rgba(200, 182, 150, 0.35);
+    }
+
+    /* Nút ấn triện xúc giác */
+    .seal-pill {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .seal-pill:hover {
+      transform: translateY(-1.5px);
+    }
+    .seal-pill:active {
+      transform: translateY(1px);
+    }
+
+    /* Đường kẻ viền hoa văn truyền thống */
+    .antique-divider {
+      background-image: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.55), transparent);
+    }
+    html:not(.dark) .antique-divider {
+      background-image: linear-gradient(to right, transparent, rgba(146, 104, 26, 0.45), transparent);
+    }
+
+    /* Hiệu ứng hạt bụi chuyển động nền */
+    #ambient-particles {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col font-traditional transition-colors duration-300 bg-archLight-abyss text-archLight-text dark:bg-archDark-abyss dark:text-archDark-text selection:bg-amber-700 selection:text-white relative overflow-x-hidden">
+
+  <!-- ========================================================================= -->
+  <!-- HIỆU ỨNG NỀN SINH ĐỘNG (CANVAS PARTICLES & AMBIENT AURORA GLOW ORBS) -->
+  <!-- ========================================================================= -->
+  <canvas id="ambient-particles"></canvas>
+
+  <!-- Các quầng sáng cực quang ấm chuyển động phía sau nền -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full blur-[130px] bg-amber-600/15 dark:bg-archDark-gold/15 animate-glow-pulse"></div>
+    <div class="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full blur-[140px] bg-orange-700/10 dark:bg-archDark-accent/15 animate-float-slow"></div>
+    <div class="absolute bottom-20 left-1/4 w-[500px] h-[500px] rounded-full blur-[120px] bg-emerald-700/10 dark:bg-archDark-verdigris/15 animate-glow-pulse"></div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HEADER ĐIỀU KHIỂN CỐ ĐỊNH (STICKY HEADER ĐẦY ĐỦ CÁC NÚT) -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-50 border-b backdrop-blur-md transition-colors duration-300 border-archLight-border dark:border-archDark-border bg-archLight-surface/95 dark:bg-archDark-surface/95 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between py-3.5 gap-3">
+        
+        <!-- Logo & Tiêu Đề Mỹ Thuật -->
+        <a href="#" class="flex items-center space-x-3.5 group">
+          <div class="w-11 h-11 rounded-full border border-amber-600/50 dark:border-archDark-gold/60 flex items-center justify-center text-amber-800 dark:text-archDark-gold bg-amber-50 dark:bg-archDark-panel shadow-sm group-hover:scale-105 transition">
+            <span class="font-script text-3xl -mt-1.5">IT</span>
+          </div>
+          <div>
+            <div class="flex items-baseline space-x-2">
+              <span class="font-decorative text-lg sm:text-xl font-bold tracking-widest text-amber-950 dark:text-archDark-gold">
+                INVISIBLE TRACES
+              </span>
+              <span class="font-script text-2xl text-amber-700 dark:text-archDark-goldLight hidden sm:inline" id="brand-subname">Dấu Vết Vô Hình</span>
+            </div>
+            <p class="text-[11px] font-traditional italic tracking-wide text-archLight-muted dark:text-archDark-muted -mt-1" id="nav-subtitle">
+              Nhiếp ảnh thực địa • Tự sự giám tuyển • Sinh thái học làng nghề
+            </p>
+          </div>
+        </a>
+
+        <!-- Cụm Các Nút Điều Khiển Độc Lập -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 text-xs">
+          
+          <!-- 1. BẬT / TẮT Scientific Note (2 Nút Riêng Biệt) -->
+          <div class="flex items-center p-1 rounded-lg border border-archLight-border dark:border-archDark-border bg-archLight-panel dark:bg-archDark-panel shadow-inner">
+            <span class="hidden sm:inline font-mono text-[11px] px-2 text-archLight-muted dark:text-archDark-muted uppercase flex items-center gap-1">
+              <i data-lucide="microscope" class="w-3.5 h-3.5 text-emerald-700 dark:text-archDark-verdigris"></i> Note:
+            </span>
+            <button id="btn-note-on" onclick="setScientificNotes(true)" class="seal-pill px-3 py-1 rounded font-mono font-bold text-[11px] bg-amber-700 text-white dark:bg-archDark-gold dark:text-black shadow">
+              <span data-i18n="btn_note_on">BẬT</span>
+            </button>
+            <button id="btn-note-off" onclick="setScientificNotes(false)" class="seal-pill px-3 py-1 rounded font-mono font-medium text-[11px] text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white">
+              <span data-i18n="btn_note_off">TẮT</span>
+            </button>
+          </div>
+
+          <!-- 2. Chuyển Đổi TIẾNG VIỆT / ENGLISH (2 Nút Riêng Biệt) -->
+          <div class="flex items-center p-1 rounded-lg border border-archLight-border dark:border-archDark-border bg-archLight-panel dark:bg-archDark-panel shadow-inner">
+            <button id="btn-lang-vi" onclick="setLanguage('vi')" class="seal-pill px-3 py-1 rounded font-traditional font-bold text-[11px] bg-amber-700 text-white dark:bg-archDark-gold dark:text-black shadow">
+              Tiếng Việt
+            </button>
+            <button id="btn-lang-en" onclick="setLanguage('en')" class="seal-pill px-3 py-1 rounded font-traditional font-medium text-[11px] text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white">
+              English
+            </button>
+          </div>
+
+          <!-- 3. Nút Đổi Theme ĐEN / TRẮNG -->
+          <button onclick="toggleTheme()" id="btn-theme" class="seal-pill flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-archLight-border dark:border-archDark-border bg-archLight-panel dark:bg-archDark-panel text-archLight-text dark:text-archDark-gold hover:border-amber-600 shadow-sm" title="Chuyển màn hình Sáng / Tối">
+            <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
+            <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-amber-800"></i>
+            <span class="font-mono text-[11px] font-bold" id="theme-text">SÁNG</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Menu Điều Hướng Cuộn Trang Dài Đến 3 Mục Lớn (ĐÃ ĐỔI TÊN MỤC) -->
+      <nav class="flex items-center justify-center space-x-6 sm:space-x-12 border-t border-archLight-border/60 dark:border-archDark-border/60 py-2.5 text-xs sm:text-sm font-decorative tracking-wider">
+        <a href="#section-crafts" class="text-archLight-muted dark:text-archDark-muted hover:text-amber-700 dark:hover:text-archDark-gold transition flex items-center space-x-1.5">
+          <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+          <span data-i18n="nav_sec1">I. Art Photography</span>
+        </a>
+        <a href="#section-exhibition" class="text-archLight-muted dark:text-archDark-muted hover:text-amber-700 dark:hover:text-archDark-gold transition flex items-center space-x-1.5">
+          <i data-lucide="door-open" class="w-3.5 h-3.5"></i>
+          <span data-i18n="nav_sec2">II. Exhibition / My Gallery</span>
+        </a>
+        <a href="#section-environment" class="text-archLight-muted dark:text-archDark-muted hover:text-amber-700 dark:hover:text-archDark-gold transition flex items-center space-x-1.5">
+          <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
+          <span data-i18n="nav_sec3">III. Environmental Impacts</span>
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN CONTENT: DÃN CÁCH RỘNG RÃI, BỐ CỤC DÀI CUỘN TỰ NHIÊN -->
+  <!-- ========================================================================= -->
+  <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-28 relative z-10">
+
+    <!-- ======================================================================= -->
+    <!-- MỤC I: I. ART PHOTOGRAPHY (7 LÀNG NGHỀ • 5 KHUNG TRANH MỖI LÀNG) -->
+    <!-- ======================================================================= -->
+    <section id="section-crafts" class="space-y-12">
+      
+      <!-- Tiêu đề Mục I -->
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="font-script text-4xl sm:text-5xl text-amber-700 dark:text-archDark-gold block" id="sec1-script-title">
+          Tinh Hoa & Trầm Tích
+        </span>
+        <h2 class="font-decorative text-2xl sm:text-3xl font-bold tracking-widest text-amber-950 dark:text-archDark-text" data-i18n="title_sec1">
+          I. ART PHOTOGRAPHY
+        </h2>
+        <div class="h-0.5 w-48 mx-auto antique-divider my-2"></div>
+        <p class="font-traditional italic text-sm sm:text-base text-archLight-muted dark:text-archDark-muted leading-relaxed" data-i18n="desc_sec1">
+          Mỗi tác phẩm là cuộc gặp gỡ giữa ánh sáng mỹ thuật truyền đời và những vết tích vi hình thái học được thu thập trực tiếp tại thực địa làng nghề.
+        </p>
+      </div>
+
+      <!-- Thanh chọn 7 Làng Nghề Cổ Truyền -->
+      <div class="p-3 sm:p-4 rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm shadow-sm">
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1" id="craft-tabs-pills">
+          <!-- 7 Villages pills injected by JS -->
+        </div>
+
+        <!-- Banner thông tin làng nghề đang chọn -->
+        <div class="mt-4 pt-4 border-t border-archLight-border/60 dark:border-archDark-border/60 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+          <div>
+            <div class="flex items-center space-x-3 font-mono">
+              <span class="font-bold text-sm text-amber-800 dark:text-archDark-accent" id="banner-village-name"></span>
+              <span class="text-archLight-muted dark:text-archDark-muted flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600 dark:text-archDark-gold"></i>
+                <span id="banner-village-loc"></span>
+              </span>
+            </div>
+            <p class="font-traditional italic text-sm text-archLight-muted dark:text-archDark-muted mt-1 leading-relaxed" id="banner-village-desc"></p>
+          </div>
+
+          <div class="shrink-0 flex items-center space-x-2 font-mono text-[11px] text-emerald-800 dark:text-archDark-verdigris bg-emerald-50/80 dark:bg-archDark-card px-3 py-1.5 rounded-lg border border-emerald-300/40 dark:border-emerald-800/40">
+            <i data-lucide="check-check" class="w-4 h-4"></i>
+            <span data-i18n="auto_save_badge">Ghi chú & ảnh tự lưu trình duyệt</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danh Sách 5 Khung Tranh Nghệ Thuật Cỡ Lớn (Dãn cách thoáng đãng) -->
+      <div class="space-y-16" id="village-frames-container">
+        <!-- 5 Art frames injected by JS -->
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- MỤC II: II. EXHIBITION / MY GALLERY -->
+    <!-- ======================================================================= -->
+    <section id="section-exhibition" class="space-y-12 pt-8">
+      
+      <!-- Tiêu đề Mục II -->
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="font-script text-4xl sm:text-5xl text-amber-700 dark:text-archDark-gold block" id="sec2-script-title">
+          Không Gian Giám Tuyển
+        </span>
+        <h2 class="font-decorative text-2xl sm:text-3xl font-bold tracking-widest text-amber-950 dark:text-archDark-text" data-i18n="title_sec2">
+          II. EXHIBITION / MY GALLERY
+        </h2>
+        <div class="h-0.5 w-48 mx-auto antique-divider my-2"></div>
+        <p class="font-traditional italic text-sm sm:text-base text-archLight-muted dark:text-archDark-muted leading-relaxed" data-i18n="desc_sec2">
+          Kể câu chuyện về một buổi triển lãm nơi mỹ học cổ truyền không tách rời sinh thái đương đại.
+        </p>
+      </div>
+
+      <!-- Khung Kể Chuyện Tự Sự & Soundscape -->
+      <div class="art-exhibit-frame rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm p-6 sm:p-12 space-y-6">
+        
+        <div class="text-center max-w-2xl mx-auto pb-4 border-b border-archLight-border/60 dark:border-archDark-border/60">
+          <span class="font-mono text-xs uppercase tracking-widest px-3 py-1 rounded-full border border-amber-600/40 dark:border-archDark-gold/40 text-amber-800 dark:text-archDark-gold bg-amber-50/60 dark:bg-archDark-card" data-i18n="tag_essay">
+            Curatorial Essay • Tiểu Luận Khảo Cứu
+          </span>
+          <h3 class="font-traditional text-xl sm:text-2xl font-bold text-amber-950 dark:text-archDark-text mt-3" data-i18n="essay_main_heading">
+            Khi Những Phân Tử Vô Hình Trở Thành Tác Phẩm
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-traditional text-sm sm:text-base leading-relaxed text-justify">
+          <p data-i18n="essay_p1">
+            "Chúng tôi bước vào những làng nghề ven sông Hồng, sông Đuống không chỉ bằng con mắt của những người mê đắm màu men tro Bát Tràng hay ánh tơ vàng óng Vạn Phúc. Chúng tôi mang theo ống nghiệm, đĩa petri và kính hiển vi quang học. Sau mỗi tác phẩm mỹ nghệ tuyệt đỉnh là những phân tử vô hình đã và đang âm thầm thấm sâu vào mạch nước ngầm, lớp đất phù sa và phế nang của bao đời người thợ."
+          </p>
+          <p data-i18n="essay_p2">
+            "Buổi triển lãm 'Invisible Traces' được kiến tạo không nhằm mục đích phán xét hay đổ lỗi. Đó là không gian đối thoại công bằng giữa hào quang của di sản ngàn năm và những tổn thương sinh thái cần được hàn gắn. Khi người xem bước chậm qua từng căn phòng, họ sẽ nhận ra vẻ đẹp đích thực chỉ trọn vẹn khi con người biết trân trọng cả những dấu vết vô hình mà mình bỏ lại."
+          </p>
+        </div>
+
+        <!-- Cụm Phát Âm Thanh Trường Âm Làng Nghề (Soundscape Simulation) -->
+        <div class="pt-6 border-t border-archLight-border/60 dark:border-archDark-border/60 max-w-xl mx-auto text-center space-y-3">
+          <button id="btn-soundscape" onclick="toggleSoundscape()" class="seal-pill w-full sm:w-auto px-6 py-3 rounded-xl border border-amber-600/50 dark:border-archDark-gold/60 bg-amber-50 dark:bg-archDark-card flex items-center justify-center space-x-3 text-amber-900 dark:text-archDark-gold shadow-md mx-auto">
+            <i data-lucide="volume-2" class="w-5 h-5 text-amber-700 dark:text-archDark-gold" id="soundscape-icon"></i>
+            <span class="font-mono text-xs sm:text-sm font-bold" id="soundscape-text" data-i18n="btn_soundscape">
+              Phát Trường Âm Làng Nghề (Acoustic Soundscape)
+            </span>
+          </button>
+          <p class="font-mono text-[11px] text-archLight-muted dark:text-archDark-muted" data-i18n="soundscape_hint">
+            (Mô phỏng trường âm: tiếng búa gõ đồng Đại Bái, thoi dệt gỗ Vạn Phúc & tiếng thở lò nung)
+          </p>
+        </div>
+
+      </div>
+
+      <!-- 3 Không Gian Phòng Triển Lãm Trưng Bày (3 Chambers) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Gian 01 -->
+        <div class="art-exhibit-frame rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm p-6 sm:p-8 flex flex-col justify-between hover:border-amber-600/60 dark:hover:border-archDark-gold/60 transition duration-300">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-amber-700 dark:text-archDark-gold tracking-widest" data-i18n="room1_tag">PHÒNG 01</span>
+              <span class="font-script text-2xl text-amber-800 dark:text-amber-300" id="room1-script">Ánh Sáng</span>
+            </div>
+            <h4 class="font-decorative text-base font-bold text-amber-950 dark:text-archDark-text mt-2" data-i18n="room1_title">
+              SỰ TINH XẢO & HÀO QUANG
+            </h4>
+            <p class="font-traditional text-sm text-archLight-muted dark:text-archDark-muted mt-3 leading-relaxed" data-i18n="room1_desc">
+              Không gian rực rỡ trưng bày các kiệt tác đỉnh cao: gốm men rạn trác tuyệt, cuộn lụa tơ tằm óng ả, đỉnh đồng hun chạm bạc tam khí. Nơi tôn vinh kỹ nghệ và niềm tự hào di sản ngàn đời.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-archLight-border/60 dark:border-archDark-border/60 flex items-center justify-between text-xs font-mono text-archLight-muted dark:text-archDark-muted">
+            <span data-i18n="room1_focus_label">Visual Focus</span>
+            <span class="text-amber-800 dark:text-archDark-gold font-bold" data-i18n="room1_focus_val">Vẻ Đẹp Truyền Đời</span>
+          </div>
+        </div>
+
+        <!-- Gian 02 -->
+        <div class="art-exhibit-frame rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm p-6 sm:p-8 flex flex-col justify-between hover:border-rose-600/60 dark:hover:border-archDark-accent/60 transition duration-300">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-rose-700 dark:text-archDark-accent tracking-widest" data-i18n="room2_tag">PHÒNG 02</span>
+              <span class="font-script text-2xl text-rose-800 dark:text-rose-400" id="room2-script">Trầm Tích</span>
+            </div>
+            <h4 class="font-decorative text-base font-bold text-amber-950 dark:text-archDark-text mt-2" data-i18n="room2_title">
+              DẤU VẾT VI MÔ VÔ HÌNH
+            </h4>
+            <p class="font-traditional text-sm text-archLight-muted dark:text-archDark-muted mt-3 leading-relaxed" data-i18n="room2_desc">
+              Không gian tối chiếu đèn tia hẹp: khán giả nhìn qua kính hiển vi quang học để thấy những tinh thể oxit đồng trong nước thải, bột mài vỏ trứng sơn mài và muội than vách lò nung.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-archLight-border/60 dark:border-archDark-border/60 flex items-center justify-between text-xs font-mono text-archLight-muted dark:text-archDark-muted">
+            <span data-i18n="room2_focus_label">Micro Focus</span>
+            <span class="text-rose-700 dark:text-archDark-accent font-bold" data-i18n="room2_focus_val">Vi Hạt Lắng Đọng</span>
+          </div>
+        </div>
+
+        <!-- Gian 03 -->
+        <div class="art-exhibit-frame rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-600/60 dark:hover:border-archDark-verdigris/60 transition duration-300">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-emerald-700 dark:text-archDark-verdigris tracking-widest" data-i18n="room3_tag">PHÒNG 03</span>
+              <span class="font-script text-2xl text-emerald-800 dark:text-emerald-400" id="room3-script">Tái Sinh</span>
+            </div>
+            <h4 class="font-decorative text-base font-bold text-amber-950 dark:text-archDark-text mt-2" data-i18n="room3_title">
+              ĐỐI THOẠI & TƯƠNG LAI XANH
+            </h4>
+            <p class="font-traditional text-sm text-archLight-muted dark:text-archDark-muted mt-3 leading-relaxed" data-i18n="room3_desc">
+              Điểm kết thúc mở ra hy vọng: mô hình hồ rễ lau sậy lọc nước nhuộm, gạch samốt tái chế từ gốm vỡ và lò nung gas điện hóa sạch. Lời cam kết chung tay để làng nghề sống mãi cùng tự nhiên.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-archLight-border/60 dark:border-archDark-border/60 flex items-center justify-between text-xs font-mono text-archLight-muted dark:text-archDark-muted">
+            <span data-i18n="room3_focus_label">Eco Future</span>
+            <span class="text-emerald-700 dark:text-archDark-verdigris font-bold" data-i18n="room3_focus_val">Cộng Sinh Sinh Thái</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- MỤC III: III. ENVIRONMENTAL IMPACTS -->
+    <!-- ======================================================================= -->
+    <section id="section-environment" class="space-y-12 pt-8">
+      
+      <!-- Tiêu đề Mục III -->
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="font-script text-4xl sm:text-5xl text-amber-700 dark:text-archDark-gold block" id="sec3-script-title">
+          Giải Pháp Kỹ Thuật
+        </span>
+        <h2 class="font-decorative text-2xl sm:text-3xl font-bold tracking-widest text-amber-950 dark:text-archDark-text" data-i18n="title_sec3">
+          III. ENVIRONMENTAL IMPACTS
+        </h2>
+        <div class="h-0.5 w-48 mx-auto antique-divider my-2"></div>
+        <p class="font-traditional italic text-sm sm:text-base text-archLight-muted dark:text-archDark-muted leading-relaxed" data-i18n="desc_sec3">
+          Các giải pháp công nghệ sinh thái học và kỹ thuật tuần hoàn được đúc kết từ khảo sát thực nghiệm tại các làng nghề.
+        </p>
+      </div>
+
+      <!-- Thanh chọn 5 Tab Chuyên Đề Môi Trường -->
+      <div class="flex items-center justify-center space-x-2 overflow-x-auto pb-2" id="env-tabs-pills">
+        <!-- 5 Tabs injected by JS -->
+      </div>
+
+      <!-- Nội Dung Chi Tiết Của Chuyên Đề Đang Chọn -->
+      <div class="art-exhibit-frame rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm p-6 sm:p-10 space-y-8">
+        
+        <!-- Header Chuyên Đề -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-archLight-border/60 dark:border-archDark-border/60">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 rounded-xl border border-amber-600/40 dark:border-archDark-gold/50 flex items-center justify-center text-amber-800 dark:text-archDark-gold bg-amber-50 dark:bg-archDark-card shrink-0" id="env-icon-box">
+              <i data-lucide="droplet" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="font-mono text-xs uppercase text-amber-800 dark:text-archDark-accent font-bold block" id="env-target-villages"></span>
+              <h3 class="font-traditional text-xl sm:text-2xl font-bold text-amber-950 dark:text-archDark-text mt-0.5" id="env-title"></h3>
+            </div>
+          </div>
+          <span class="font-mono text-xs px-3 py-1 rounded-full border border-emerald-600/40 text-emerald-800 dark:text-archDark-verdigris bg-emerald-50/50 dark:bg-archDark-card shrink-0 self-start md:self-auto" id="env-badge-index">
+            CHUYÊN ĐỀ [01/05]
+          </span>
+        </div>
+
+        <p class="font-traditional italic text-sm sm:text-base text-archLight-muted dark:text-archDark-muted leading-relaxed max-w-4xl" id="env-overview"></p>
+
+        <!-- Khối Thách Thức vs Giải Pháp Khoa Học -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+          
+          <!-- Thách Thức -->
+          <div class="p-6 rounded-xl bg-rose-50/70 dark:bg-archDark-card/70 border border-rose-200 dark:border-rose-900/40 space-y-3">
+            <h4 class="font-mono text-xs font-bold uppercase text-rose-900 dark:text-rose-400 flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+              <span data-i18n="label_challenges">Thách Thức Hiện Trường Làng Nghề</span>
+            </h4>
+            <ul class="space-y-2.5 font-traditional text-xs sm:text-sm text-archLight-text dark:text-archDark-muted list-disc list-inside leading-relaxed" id="env-challenges-list">
+              <!-- JS rendered -->
+            </ul>
+          </div>
+
+          <!-- Giải Pháp -->
+          <div class="p-6 rounded-xl bg-emerald-50/70 dark:bg-archDark-card/70 border border-emerald-200 dark:border-emerald-900/40 space-y-3">
+            <h4 class="font-mono text-xs font-bold uppercase text-emerald-900 dark:text-emerald-400 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span data-i18n="label_solutions">Phác Đồ & Công Nghệ Xử Lý Khả Thi</span>
+            </h4>
+            <ul class="space-y-2.5 font-traditional text-xs sm:text-sm text-archLight-text dark:text-archDark-text list-disc list-inside leading-relaxed" id="env-solutions-list">
+              <!-- JS rendered -->
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- LIGHTBOX MODAL PHÓNG TO ẢNH NGHỆ THUẬT -->
+  <!-- ========================================================================= -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative max-w-5xl w-full bg-archLight-surface dark:bg-archDark-panel border border-archLight-border dark:border-archDark-border p-6 rounded-2xl shadow-2xl flex flex-col items-center">
+      <button onclick="closeLightbox()" class="absolute top-4 right-4 text-archLight-muted dark:text-archDark-muted hover:text-amber-600 dark:hover:text-archDark-gold transition">
+        <i data-lucide="x" class="w-7 h-7"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="Enlarged Specimen" class="max-h-[75vh] object-contain rounded-lg border border-archLight-border/70 dark:border-archDark-border/70 shadow-lg">
+      <p id="lightbox-title" class="font-script text-3xl text-amber-800 dark:text-archDark-gold mt-4 text-center"></p>
+      <span id="lightbox-loc" class="font-mono text-xs text-archLight-muted dark:text-archDark-muted mt-0.5"></span>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER DI SẢN CỔ ĐIỂN -->
+  <!-- ========================================================================= -->
+  <footer class="border-t transition-colors duration-300 border-archLight-border dark:border-archDark-border bg-archLight-surface dark:bg-archDark-surface py-12 text-center text-xs font-mono text-archLight-muted dark:text-archDark-muted relative z-10">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p class="tracking-widest font-decorative text-sm text-amber-950 dark:text-archDark-gold">
+        INVISIBLE TRACES • DẤU VẾT VÔ HÌNH
+      </p>
+      <p data-i18n="footer_sub">Lưu Trữ Khảo Cứu Nghệ Thuật & Sinh Thái Học Làng Nghề Việt Nam</p>
+      <p class="text-[11px] opacity-70" data-i18n="footer_tech">Tối ưu hóa hoàn chỉnh cho triển lãm và xuất bản trực tiếp trên GitHub Pages</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: LOGIC & HOÀN THIỆN CHUYỂN NGỮ 100% -->
+  <!-- ========================================================================= -->
+  <script>
+    let isDarkMode = true;
+    let currentLang = 'vi';
+    let showScientificNotes = true;
+    let currentCraftIndex = 0;
+    let currentEnvIndex = 0;
+    let soundPlaying = false;
+
+    /* TỪ ĐIỂN SONG NGỮ HOÀN CHỈNH 100% VIỆT - ANH */
+    const i18n = {
+      vi: {
+        brand_subname: "Dấu Vết Vô Hình",
+        nav_subtitle: "Nhiếp ảnh thực địa • Tự sự giám tuyển • Sinh thái học làng nghề",
+        btn_note_on: "BẬT",
+        btn_note_off: "TẮT",
+        nav_sec1: "I. Art Photography",
+        nav_sec2: "II. Exhibition / My Gallery",
+        nav_sec3: "III. Environmental Impacts",
+        sec1_script: "Tinh Hoa & Trầm Tích",
+        title_sec1: "I. ART PHOTOGRAPHY",
+        desc_sec1: "Mỗi tác phẩm là cuộc gặp gỡ giữa ánh sáng mỹ thuật truyền đời và những vết tích vi hình thái học được thu thập trực tiếp tại thực địa làng nghề.",
+        sec2_script: "Không Gian Giám Tuyển",
+        title_sec2: "II. EXHIBITION / MY GALLERY",
+        desc_sec2: "Kể câu chuyện về một buổi triển lãm nơi mỹ học cổ truyền không tách rời sinh thái đương đại.",
+        sec3_script: "Giải Pháp Kỹ Thuật",
+        title_sec3: "III. ENVIRONMENTAL IMPACTS",
+        desc_sec3: "Các giải pháp công nghệ sinh thái học và kỹ thuật tuần hoàn được đúc kết từ khảo sát thực nghiệm tại các làng nghề.",
+        tag_essay: "Curatorial Essay • Tiểu Luận Khảo Cứu",
+        essay_main_heading: "Khi Những Phân Tử Vô Hình Trở Thành Tác Phẩm",
+        essay_p1: "\"Chúng tôi bước vào những làng nghề ven sông Hồng, sông Đuống không chỉ bằng con mắt của những người mê đắm màu men tro Bát Tràng hay ánh tơ vàng óng Vạn Phúc. Chúng tôi mang theo ống nghiệm, đĩa petri và kính hiển vi quang học. Sau mỗi tác phẩm mỹ nghệ tuyệt đỉnh là những phân tử vô hình đã và đang âm thầm thấm sâu vào mạch nước ngầm, lớp đất phù sa và phế nang của bao đời người thợ.\"",
+        essay_p2: "\"Buổi triển lãm 'Invisible Traces' được kiến tạo không nhằm mục đích phán xét hay đổ lỗi. Đó là không gian đối thoại công bằng giữa hào quang của di sản ngàn năm và những tổn thương sinh thái cần được hàn gắn. Khi người xem bước chậm qua từng căn phòng, họ sẽ nhận ra vẻ đẹp đích thực chỉ trọn vẹn khi con người biết trân trọng cả những dấu vết vô hình mà mình bỏ lại.\"",
+        btn_soundscape: "Phát Trường Âm Làng Nghề (Acoustic Soundscape)",
+        btn_soundscape_active: "Đang phát tiếng thoi dệt & búa đồng...",
+        soundscape_hint: "(Mô phỏng trường âm: tiếng búa gõ đồng Đại Bái, thoi dệt gỗ Vạn Phúc & tiếng thở lò nung)",
+        room1_tag: "PHÒNG 01",
+        room1_script: "Ánh Sáng",
+        room1_title: "SỰ TINH XẢO & HÀO QUANG",
+        room1_desc: "Không gian rực rỡ trưng bày các kiệt tác đỉnh cao: gốm men rạn trác tuyệt, cuộn lụa tơ tằm óng ả, đỉnh đồng hun chạm bạc tam khí. Nơi tôn vinh kỹ nghệ và niềm tự hào di sản ngàn đời.",
+        room1_focus_label: "Visual Focus",
+        room1_focus_val: "Vẻ Đẹp Truyền Đời",
+        room2_tag: "PHÒNG 02",
+        room2_script: "Trầm Tích",
+        room2_title: "DẤU VẾT VI MÔ VÔ HÌNH",
+        room2_desc: "Không gian tối chiếu đèn tia hẹp: khán giả nhìn qua kính hiển vi quang học để thấy những tinh thể oxit đồng trong nước thải, bột mài vỏ trứng sơn mài và muội than vách lò nung.",
+        room2_focus_label: "Micro Focus",
+        room2_focus_val: "Vi Hạt Lắng Đọng",
+        room3_tag: "PHÒNG 03",
+        room3_script: "Tái Sinh",
+        room3_title: "ĐỐI THOẠI & TƯƠNG LAI XANH",
+        room3_desc: "Điểm kết thúc mở ra hy vọng: mô hình hồ rễ lau sậy lọc nước nhuộm, gạch samốt tái chế từ gốm vỡ và lò nung gas điện hóa sạch. Lời cam kết chung tay để làng nghề sống mãi cùng tự nhiên.",
+        room3_focus_label: "Eco Future",
+        room3_focus_val: "Cộng Sinh Sinh Thái",
+        label_challenges: "Thách Thức Hiện Trường Làng Nghề",
+        label_solutions: "Phác Đồ & Công Nghệ Xử Lý Khả Thi",
+        btn_replace_photo: "Đổi / Tải ảnh này",
+        sci_label: "Scientific Note (Quan sát vi hình thái học & kính hiển vi):",
+        art_label: "Art & Curatorial Note (Tự sự nghệ thuật & thông điệp thị giác):",
+        auto_save_badge: "Ghi chú & ảnh tự lưu trình duyệt",
+        artwork_prefix: "Tác Phẩm",
+        fullscreen_hint: "Nhấp để mở toàn màn hình chiêm ngưỡng",
+        specimen_field: "Thực địa lưu trữ",
+        footer_sub: "Lưu Trữ Khảo Cứu Nghệ Thuật & Sinh Thái Học Làng Nghề Việt Nam",
+        footer_tech: "Tối ưu hóa hoàn chỉnh cho triển lãm và xuất bản trực tiếp trên GitHub Pages",
+        env_badge_prefix: "CHUYÊN ĐỀ"
+      },
+      en: {
+        brand_subname: "Invisible Traces",
+        nav_subtitle: "Field Photography • Curatorial Essay • Village Ecology Archive",
+        btn_note_on: "ON",
+        btn_note_off: "OFF",
+        nav_sec1: "I. Art Photography",
+        nav_sec2: "II. Exhibition / My Gallery",
+        nav_sec3: "III. Environmental Impacts",
+        sec1_script: "Heritage & Sediment",
+        title_sec1: "I. ART PHOTOGRAPHY",
+        desc_sec1: "Each piece is an intersection between ancestral artistic mastery and microscopic morphology gathered directly during fieldwork.",
+        sec2_script: "Curatorial Space",
+        title_sec2: "II. EXHIBITION / MY GALLERY",
+        desc_sec2: "Narrating the curatorial journey where ancestral aesthetics engage in direct dialogue with contemporary ecology.",
+        sec3_script: "Technical Engineering",
+        title_sec3: "III. ENVIRONMENTAL IMPACTS",
+        desc_sec3: "Ecological technologies and circular material remedies summarized from empirical field research across the villages.",
+        tag_essay: "Curatorial Essay • Fieldwork Treatise",
+        essay_main_heading: "When Invisible Molecules Become Works of Art",
+        essay_p1: "\"We entered traditional craft villages along the Red and Duong rivers not merely as admirers of Bat Trang celadon or shimmering Van Phuc silks. We carried test vials, petri dishes, and optical microscopes. Behind every pinnacle masterpiece linger invisible molecules quietly percolating into groundwater, alluvial soils, and artisan lungs.\"",
+        essay_p2: "\"The 'Invisible Traces' exhibition was curated not to condemn or accuse. It is an honest forum reconciling centuries of cultural splendor with ecological wounds awaiting restorative care. Walking through each hall, visitors realize that authentic beauty is complete only when we honor the invisible traces we leave behind.\"",
+        btn_soundscape: "Trigger Acoustic Soundscape Simulation",
+        btn_soundscape_active: "Streaming loom shuttles & foundry hammer strikes...",
+        soundscape_hint: "(Soundscape simulation: Dai Bai bronze chimes, Van Phuc wooden looms & breathing kilns)",
+        room1_tag: "GALLERY 01",
+        room1_script: "Luminescence",
+        room1_title: "AESTHETICS & HEREDITARY SPLENDOR",
+        room1_desc: "Luminous chamber exhibiting pinnacle masterworks: crackled jade ceramics, iridescent silks, and chased bronzes celebrating millennia of human mastery.",
+        room1_focus_label: "Visual Focus",
+        room1_focus_val: "Ancestral Grace",
+        room2_tag: "GALLERY 02",
+        room2_script: "Sediment",
+        room2_title: "SEDIMENTARY MICRO-TRACES",
+        room2_desc: "Darkened gallery with spotlighted microscopes: revealing copper oxide crystals in washwater, abrasive lacquer dust, and kiln flue deposits.",
+        room2_focus_label: "Micro Focus",
+        room2_focus_val: "Settling Particulates",
+        room3_tag: "GALLERY 03",
+        room3_script: "Renaissance",
+        room3_title: "DIALOGUE & ECOLOGICAL FUTURE",
+        room3_desc: "The open horizon: reed-bed phytoremediation prototypes, grog-recycled ceramic bricks, and clean electric kilns for sustainable cohabitation.",
+        room3_focus_label: "Eco Future",
+        room3_focus_val: "Ecological Symbiosis",
+        label_challenges: "Fieldwork Bottlenecks & Hazards",
+        label_solutions: "Applied Engineering & Technological Remedies",
+        btn_replace_photo: "Change / Upload photo",
+        sci_label: "Scientific Note (Microscopic morphology & specimen analysis):",
+        art_label: "Art & Curatorial Note (Aesthetic treatise & visual narrative):",
+        auto_save_badge: "Auto-saved to browser storage",
+        artwork_prefix: "Artwork",
+        fullscreen_hint: "Click to view full screen exhibit",
+        specimen_field: "Archived Field Site",
+        footer_sub: "Artistic & Ecological Research Archive of Vietnamese Craft Villages",
+        footer_tech: "Fully optimized for exhibition and deployment on GitHub Pages",
+        env_badge_prefix: "DOSSIER"
+      }
+    };
+
+    /* 7 LÀNG NGHỀ: 5 KHUNG TRANH NGHỆ THUẬT MỖI LÀNG CÓ ĐẦY ĐỦ BẢN DỊCH VIỆT - ANH */
+    const craftsData = [
+      {
+        id: "bat-trang",
+        name_vi: "Gốm Bát Tràng",
+        name_en: "Bat Trang Ceramics",
+        loc_vi: "Gia Lâm, Hà Nội",
+        loc_en: "Gia Lam, Hanoi",
+        desc_vi: "Bảy trăm năm kỹ nghệ bàn xoay, men tro rạn và ngọn lửa lò nung qua nhiều thế hệ.",
+        desc_en: "Seven centuries of pottery wheel mastery, ash glazes, and ancestral kiln firing.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Vòng Xoay Bùn Đất & Bàn Chuốt",
+            title_en: "01. Rotary Clay Wheel Plasticity",
+            sci_vi: "Phóng đại vi cấu trúc: Các phiến khoáng sét Kaolinit xếp định hướng đồng tâm theo gia tốc góc của bàn xoay. Những bọt khí li ti bị ép thoát ra ngoài bề mặt tạo mao dẫn xốp tự nhiên.",
+            sci_en: "Microscopic analysis: Kaolinite clay platelets align concentrically along angular acceleration vectors, forming capillary micropores as trapped air is extruded.",
+            art_vi: "Dấu vân tay người thợ hằn lên từng vòng xoay của đất. Khoảnh khắc bùn đất vô tri nhận lấy linh hồn và hình hài ấm áp của một tác phẩm điêu khắc.",
+            art_en: "Artisan fingerprints grooved into clay rings. The moment inert river mud receives vitality and architectural dignity."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Rạn Men Tro & Ứng Suất Nhiệt",
+            title_en: "02. Ash Glaze Thermal Crackle",
+            sci_vi: "Màng thủy tinh hóa từ tro trấu có hệ số co ngót nhiệt lớn hơn xương gốm. Khi hạ nhiệt độ lò từ 1,280°C xuống, lực căng bề mặt tự tạo nên mạng lưới vi nứt hình học đa giác tinh xảo.",
+            sci_en: "Vitreous ash glaze has a higher thermal contraction coefficient than the body. Cooling from 1,280°C generates tensile stress forming polygonal crackle webs.",
+            art_vi: "Tiếng rạn lách tách vang lên trong lòng lò nung tựa tiếng thở của đất. Người nghệ nhân xem vết nứt không phải khiếm khuyết mà là vẻ đẹp hữu ý của thời gian.",
+            art_en: "Faint crackles inside the cooling kiln like earth exhaling. The potter welcomes fractures not as flaws, but as poetic manifestations of time."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Muội Than & Tro Khoáng Vòm Lò",
+            title_en: "03. Kiln Soot & Mineral Crust",
+            sci_vi: "Mẫu cặn bám trên gạch chịu lửa gồm vi hạt carbon vô định hình kết tụ cùng oxit sắt thăng hoa. Lớp vỏ khoáng này đóng rắn tự nhiên sau hàng trăm mẻ nung liên tiếp.",
+            sci_en: "Refractory wall crust reveals amorphous carbon particulates aggregated with sublimated iron oxides, creating an accidental vitreous deposit over decades of firings.",
+            art_vi: "Vòm lò nung tựa như cuốn biên niên sử đen tuyền bằng tro than. Từng lớp muội là chứng tích của bao đêm thức trắng canh ngọn lửa thiêng.",
+            art_en: "The kiln ceiling resembles an obsidian diary of fire. Each soot stratum bears silent testimony to sleepless vigils guarding the sacred flame."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Trầm Tích Men Trôi Dạt Dưới Lòng Kênh",
+            title_en: "04. Glaze Runoff Sediment in Canal",
+            sci_vi: "Kính hiển vi quang học cho thấy bột thạch anh nghiền mịn xen lẫn các hạt oxit kim loại đồng, coban và mangan chưa qua keo tụ trôi dạt trong rãnh thoát nước thực địa.",
+            sci_en: "Optical examination reveals pulverized quartz dust intimately mixed with transition metal oxides (copper, cobalt, manganese) suspended in wastewater ditches.",
+            art_vi: "Màu men xanh lam óng ánh trôi theo làn nước rửa phôi. Vẻ đẹp lộng lẫy trên thân bình gốm vô tình để lại vệt bóng bí ẩn dưới bùn lầy.",
+            art_en: "Cobalt glaze wash leaking into masonry trenches. The aesthetic majesty destined for living rooms leaves behind an iridescent indigo shadow in the sediment."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1531956531700-dc02086093c4?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Đất Nung Phế Phẩm & Tái Sinh 'Samốt'",
+            title_en: "05. Crushed Grog & Circular Clay",
+            sci_vi: "Mảnh gốm nung hỏng được nghiền mịn thành hạt samốt (grog) để phối trộn lại vào cốt đất thô mới, làm giảm độ co ngót và gia cường cấu trúc liên kết hạt.",
+            sci_en: "Defective fired shards pulverized into refractory grog, blended back into raw clay matrix to curtail shrinkage and reinforce pore structural cohesion.",
+            art_vi: "Những bình gốm vỡ không bao giờ chết đi. Chúng được nghiền nát để trở thành xương thịt cho mẻ gốm mới—vòng luân hồi bền bỉ của đất mẹ.",
+            art_en: "Shattered pots never truly perish. Ground into grog, they form the skeletal foundation for tomorrow's vessels—a circular testament of clay."
+          }
+        ]
+      },
+      {
+        id: "van-phuc",
+        name_vi: "Lụa Vạn Phúc",
+        name_en: "Van Phuc Natural Silk",
+        loc_vi: "Hà Đông, Hà Nội",
+        loc_en: "Ha Dong, Hanoi",
+        desc_vi: "Nghìn năm dệt gấm, hoa vân sa chìm và nghệ thuật ngâm nhuộm lá thảo mộc.",
+        desc_en: "A thousand years of natural jacquard silk, botanical dyeing, and craftsmanship.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Sợi Tơ Vàng Phơi Trong Nắng Sớm",
+            title_en: "01. Golden Silk Skeins Curing",
+            sci_vi: "Sợi tơ tự nhiên gồm hai lõi protein Fibroin bọc ngoài bởi keo Sericin dẻo. Tiết diện hình tam giác tự nhiên tạo khúc xạ ánh sáng lăng kính làm dải lụa óng ả đặc biệt.",
+            sci_en: "Natural silk filament comprises dual fibroin protein cores clad in gummy sericin. Natural triangular cross-sections induce prismatic light refraction.",
+            art_vi: "Những bó tơ buông lơi tựa suối tóc vàng của nắng. Người thợ dệt nên sự mềm mại quý phái từ giọt kén mỏng manh của con sâu tằm ăn lá dâu.",
+            art_en: "Skeins of raw silk cascading like golden sunlight. Weavers capture tactile luxury born from the fragile silkworm feeding upon mulberry leaves."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Vi Cấu Trúc Dệt Hoa Vân Chìm",
+            title_en: "02. Jacquard Weave Micro-Tessellation",
+            sci_vi: "Phóng đại 40x: Sợi dọc và sợi ngang cài răng lược với mật độ cực cao. Hoa văn sa chìm tạo cấu trúc vi lỗ xốp lưu thông không khí và thoát ẩm tuyệt hảo.",
+            sci_en: "Magnification 40x: Warp and weft filaments interwoven at high density. Jacquard motifs optimize natural breathability and moisture desorption.",
+            art_vi: "Nhìn sâu vào thớ lụa là trật tự kỷ hà kỳ diệu. Hoa sen, mây cuộn hiện lên mờ ảo như bức tranh thủy mặc dệt bằng sương mai.",
+            art_en: "Peering into the weave uncovers sacred geometric discipline. Clouds and lotus flowers materialize subtly like ink washes captured in morning mist."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Vết Nhuộm Ngấm Vào Gạch Sân Đình",
+            title_en: "03. Dye Staining on Porous Bricks",
+            sci_vi: "Phân tử màu tổng hợp gốc azo xen lẫn tannin củ nâu thẩm thấu sâu vào mao dẫn đất nung của gạch lát sân, kháng phân hủy quang học dưới nắng hè gay gắt.",
+            sci_en: "Synthetic azo dye molecules coupled with botanical yam tannins diffuse into brick capillary pores, demonstrating photochemical resistance under outdoor sun.",
+            art_vi: "Khoảng sân gạch đỏ loang lổ những vệt màu tím, chàm, son đỏ qua năm tháng. Một bảng pha màu thời gian kể lại lịch sử của trăm vò nước nhuộm.",
+            art_en: "A terracotta courtyard stained with decades of indigo, magenta, and madder red. A spontaneous painterly palette memorializing countless dye vats."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Nước Luộc Tơ & Bọt Keo Sericin",
+            title_en: "04. Degumming Liquor & Protein Foam",
+            sci_vi: "Nồi luộc ở 98°C hòa tan keo protein Sericin vào pha lỏng tạo bọt hữu cơ đậm đặc giàu amino acid, dễ gây suy giảm oxy nếu thoát ra ao làng mà chưa xử lý vi sinh.",
+            sci_en: "Boiling at 98°C dissolves gummy sericin proteins into liquor, forming dense amino-acid broth that depletes aquatic oxygen if discharged untreated.",
+            art_vi: "Hơi nước bốc lên thơm mùi kén tằm chín trong gian bếp cũ. Sự trút bỏ lớp vỏ xù xì bên ngoài để sợi tơ bên trong đạt đến độ mịn màng tinh khôi.",
+            art_en: "Steam billowing with the earthy aroma of softened cocoons. A shedding of coarse outer armor so the inner filament attains transcendental purity."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Nhuộm Chàm & Sắc Tím Lúc Hoàng Hôn",
+            title_en: "05. Indigo Oxidation & Violet Dusk",
+            sci_vi: "Dung dịch khử chàm không màu khi nhấc ra khỏi vại tiếp xúc với oxy khí quyển sẽ oxy hóa tức thì thành sắc tố chàm không tan liên kết chặt chẽ vào phân tử tơ.",
+            sci_en: "Colorless reduced indigo upon atmospheric air exposure rapidly oxidizes into insoluble indigo pigment locked into fibroin polymer chains.",
+            art_vi: "Tấm lụa vừa vớt ra còn mang màu xanh lá úa, chỉ sau vài phút hít thở gió trời bỗng hóa thành sắc chàm sâu thẳm như màn đêm buông xuống dòng sông.",
+            art_en: "Freshly drawn silk emerges pale chartreuse, then breathes open air to miraculously deepen into midnight indigo over the quiet river."
+          }
+        ]
+      },
+      {
+        id: "dai-bai",
+        name_vi: "Đúc Đồng Đại Bái",
+        name_en: "Dai Bai Bronze Casting",
+        loc_vi: "Gia Bình, Bắc Ninh",
+        loc_en: "Gia Binh, Bac Ninh",
+        desc_vi: "Tiếng búa gò đồng vang vọng, ngọn lửa lò đúc rực đỏ và lớp rỉ đồng lam cổ kính.",
+        desc_en: "Chased bronze echoes, roaring foundry fires, and venerable verdigris patina.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Dòng Đồng Lỏng Rót Vào Khuôn Đất",
+            title_en: "01. Molten Bronze Pouring into Mold",
+            sci_vi: "Hợp kim Cu-Sn-Zn ở 1,180°C hóa lỏng hoàn toàn rót vào lòng khuôn đất sét trộn trấu. Trấu cháy sinh các vi ống thoát khí giúp bề mặt đúc không bị rỗ khí xốp.",
+            sci_en: "Cu-Sn-Zn alloy at 1,180°C liquefies, filling loam molds. Rice husks incinerate to generate micro-vents that eliminate casting porosity.",
+            art_vi: "Dòng dung nham kim loại rực sáng tựa mảnh mặt trời lọt vào bóng đêm xưởng đúc. Kim loại thô ráp chịu tan chảy để hóa thân vào tượng Phật uy nghiêm.",
+            art_en: "A molten river blazing like concentrated sunlight within foundry shadows. Raw metal yielding to liquid heat to inhabit sacred forms."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1533158307587-828f0a76ef96?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Lớp Rỉ Đồng Cổ (Verdigris Patina)",
+            title_en: "02. Natural Verdigris Patina Crust",
+            sci_vi: "Màng khoáng mỏng hình thành khi bề mặt đồng tiếp xúc hơi ẩm, oxy và CO2 tạo khoáng Malachite Cu2CO3(OH)2 màu xanh lam bảo vệ lõi kim loại bên trong.",
+            sci_en: "Surface crust synthesized via reaction with humidity and airborne CO2 yields protective micro-crystalline Malachite Cu2CO3(OH)2 shielding the core.",
+            art_vi: "Màu xanh lam trầm mặc của thời gian phủ lên chuông đồng. Kim loại không hề già cỗi mà khoác lên mình tấm áo giáp phong rêu của những thế kỷ đã qua.",
+            art_en: "The contemplative teal of elapsed centuries coating sacred bronze. Metal does not wither; it adorns an oxidized mantle forged by history."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Xỉ Than & Bụi Đồng Trên Nền Đất",
+            title_en: "03. Foundry Slag & Metal Dust Silt",
+            sci_vi: "Xỉ lò nấu đồng gồm oxit kim loại, silica từ cát khuôn và tro cốc kết khối xốp, giữ lại các vi hạt đồng kim loại chưa lắng hết trong quá trình gạt xỉ nhiệt.",
+            sci_en: "Foundry crucible slag agglomerates copper oxides, mold sand silica, and coke ash. The porous matrix entraps unseparated metallic micro-globules.",
+            art_vi: "Dưới chân người thợ gò đồng là lớp đất đen lấp lánh bụi kim loại. Từng vết nứt chân chim trên mặt đất là dấu chân của bao đời truyền nghề bên lò lửa.",
+            art_en: "Beneath the artisan's calloused soles lies ground shimmering with metal dust. Every soil fissure marks footsteps of generational perseverance."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1541888946425-d0fbb186156a?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Vết Đục Khảm Chỉ Bạc Tam Khí",
+            title_en: "04. Chasing Grooves & Silver Inlay",
+            sci_vi: "Vết búa tạo biến dạng dẻo cục bộ trên đồng đỏ thành rãnh đuôi én cơ học, giúp găm chặt sợi chỉ bạc và vàng quỳ mà không cần đến mối hàn nhiệt hóa học.",
+            sci_en: "Hand-hammered chasing imparts localized plastic deformation, carving dovetailed channels that mechanically lock silver and gold wires without brazing.",
+            art_vi: "Mỗi nhát búa gõ xuống là một nhịp thở kiên định. Những đường chỉ bạc mảnh mai uốn lượn thành rồng bay phượng múa trên nền đồng đỏ sẫm màu.",
+            art_en: "Every rhythmic hammer strike is an act of concentrated devotion. Delicate silver threads coaxed into soaring dragons across deep red copper."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Khói Lò Nung Ánh Xanh Trong Đêm",
+            title_en: "05. Green Smelting Plume at Midnight",
+            sci_vi: "Khí thải lò luyện đồng chứa các hạt oxit kẽm siêu mịn (ZnO) thăng hoa ở nhiệt độ cao kèm bụi muội than, tạo nên ánh lửa màu xanh lục quang phổ đặc trưng.",
+            sci_en: "Foundry flue off-gases carry sublimated ultrafine zinc oxide (ZnO) aerosols and carbonaceous soot, casting characteristic spectral green flames.",
+            art_vi: "Ngọn lửa lò đúc rực sáng giữa đêm quê, mang hơi ấm xua tan giá rét mùa đông. Âm thanh búa đồng gõ boong boong như nhịp đập trái tim của làng.",
+            art_en: "Furnace fires illuminating the village night, radiating primal heat through winter mist. The chime of bronze hammers beating like the community's pulse."
+          }
+        ]
+      },
+      {
+        id: "phong-khe",
+        name_vi: "Giấy Phong Khê",
+        name_en: "Phong Khe Recycled Paper",
+        loc_vi: "TP. Bắc Ninh",
+        loc_en: "Bac Ninh City",
+        desc_vi: "Vòng tuần hoàn nghiền bột, tái sinh xơ sợi cellulose và dòng chảy xeo giấy.",
+        desc_en: "Cellulose fiber repulping, screening, and industrial recycling streams.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Màng Xơ Sợi Cellulose Tái Chế",
+            title_en: "01. Recycled Cellulose Fiber Web",
+            sci_vi: "Phóng đại sợi: Xơ sợi cellulose từ giấy phế liệu qua nhiều chu kỳ nghiền bị ngắn đi, nhưng vẫn gắn kết bền chặt nhờ mạng lưới liên kết hydro dày đặc.",
+            sci_en: "Microscopic analysis: Recycled cellulose fibrils show shearing shortening, yet maintain structural tensile cohesion via intermolecular hydrogen bonding.",
+            art_vi: "Từng tờ giấy cũ rã ra thành dòng bùn trắng đục trong bể nước. Một vòng đời mới của con chữ và tri thức lại chuẩn bị tái sinh trên liềm xeo.",
+            art_en: "Discarded paper pulped back into milky white slurry. A new cycle of literature and packaging prepared to be born upon the draining screens."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Vỏ Cây Dó & Xơ Bast Nguyên Sinh",
+            title_en: "02. Native Bast Bark Fibers",
+            sci_vi: "Vỏ cây dó tự nhiên chứa bó sợi bast dài dai giàu lignin và sáp thực vật tự nhiên, giúp giấy dó cổ truyền có khả năng kháng ẩm và mối mọt hàng thế kỷ.",
+            sci_en: "Native Do tree bark harbors elongated bast fiber bundles rich in natural lignin, conferring archival resistance against humidity and insect rot.",
+            art_vi: "Tấm vỏ cây rừng ngâm nước vôi mềm dẻo. Bàn tay người thợ giã dó đều đặn như nhịp chày thời gian, biến vỏ cây thô ráp thành trang giấy mềm tựa lụa.",
+            art_en: "Forest bark softened in limewater. The steady thud of wooden pestles beating fibers into paper sheets soft as woven gossamer."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Bể Lắng Bột Giấy & Bùn Xơ Hữu Cơ",
+            title_en: "03. Pulp Clarifier Settling Basin",
+            sci_vi: "Nước thải xeo giấy chứa hàm lượng xơ mịn lơ lửng cao. Các hạt bùn hữu cơ kết tụ tự nhiên qua thời gian lắng trọng lực tạo lớp bùn đáy mịn.",
+            sci_en: "Papermaking effluent carries elevated suspended micro-fines. Organic pulp settles via gravity sedimentation, forming dense fibrous bed deposits.",
+            art_vi: "Mặt nước bể lắng phẳng lặng như chiếc gương soi bóng bầu trời. Dưới đáy sâu kia là tàn dư của sách báo cũ đang dần lắng đọng về lại đất mẹ.",
+            art_en: "Still water mirror reflecting the sky above settling tanks. Deep beneath lie remnants of spent chronicles gently returning to sediment."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Trục Sấy Gia Nhiệt & Hơi Nước Bốc Lên",
+            title_en: "04. Steam Heated Drying Cylinders",
+            sci_vi: "Băng tải giấy qua trục sấy 120°C: Nước tự do bốc hơi nhanh chóng, khóa chặt các liên kết hydro giữa các bó sợi cellulose tạo độ cứng cơ học.",
+            sci_en: "Paper webs traverse steam rollers at 120°C: Capillary water flash-evaporates, locking intermolecular hydrogen networks into permanent rigidity.",
+            art_vi: "Tiếng rít đều đặn của guồng máy và những làn khói trắng ấm áp bốc lên. Từng dải giấy kraft nâu vàng cuộn tròn lại như những dải lụa thô của thời công nghiệp.",
+            art_en: "The rhythmic roar of iron rollers wrapped in billowing white steam. Endless reels of golden-brown kraft rolling off like industrial silk."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Trang Sách Cũ Mục Nát Dưới Mưa Rào",
+            title_en: "05. Weathered Paper Biodegradation",
+            sci_vi: "Phân hủy sinh học tự nhiên: Nấm mốc và vi khuẩn tiết enzyme cellulase cắt đứt liên kết glucosidic, trả lại carbon hữu cơ cho đất phù sa màu mỡ.",
+            sci_en: "Natural biodegradation: Cellulolytic microbes secrete cellulase enzymes cleaving glucosidic bonds, recycling organic carbon into alluvial soil.",
+            art_vi: "Một góc giấy cũ mục nát dần dưới cơn mưa rào mùa hạ. Con chữ tan biến, chỉ còn lại chất xơ của cây cỏ hòa mình vào dòng phù sa màu mỡ bên sông.",
+            art_en: "A forgotten manuscript gently decaying beneath summer rain. Ink washes fade away, returning tree fibers back into rich alluvial loam."
+          }
+        ]
+      },
+      {
+        id: "phu-vinh",
+        name_vi: "Mây Tre Phú Vinh",
+        name_en: "Phu Vinh Bamboo Weaving",
+        loc_vi: "Chương Mỹ, Hà Nội",
+        loc_en: "Chuong My, Hanoi",
+        desc_vi: "Nghệ thuật chẻ nan uốn sợi mây tre đan cài đồ thủ công và nội thất xuất khẩu.",
+        desc_en: "Supple split-bamboo lattices, organic wicker, and ecological weaving.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Nan Tre Chẻ Mảnh Như Sợi Tóc",
+            title_en: "01. Split Bamboo Filament Ribbons",
+            sci_vi: "Sợi cật tre ngoài cùng có tỷ lệ bó sợi lignocellulose xếp song song cao nhất, giúp nan tre đạt độ bền uốn dẻo và đàn hồi cơ học vượt trội so với gỗ thân khối.",
+            sci_en: "Outer bamboo culm contains parallel lignocellulose vascular bundles conferring superior tensile ductility and elastic recoil compared to timber.",
+            art_vi: "Chiếc dao bài sắc bén lia qua thân tre óng ả. Dưới bàn tay nghệ nhân, thân cây cứng cáp bỗng tách thành trăm dải nan mỏng manh, mềm mại tựa như dải ruy băng.",
+            art_en: "A razor-sharp knife gliding through emerald culm. Under skilled hands, rigid timber splits into hundreds of ribbons as pliant as silk laces."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Cấu Trúc Đan Nan Hoa Thị Đa Giác",
+            title_en: "02. Hexagonal Open-Lattice Mesh",
+            sci_vi: "Mạng đan lục giác phân tán lực cơ học đồng đều theo ba trục không gian. Khóa ma sát giữa các nan tre ngăn ngừa biến dạng khi chịu tải trọng uốn.",
+            sci_en: "Hexagonal open-weave distributes stress isotropically along triaxial vectors. Inter-strand frictional locking prevents deformation under loads.",
+            art_vi: "Mỗi mắt đan là sự giao hòa giữa khoảng rỗng và vật thể. Ánh sáng xuyên qua khe nan tạo nên bóng đổ kỷ hà tuyệt mỹ trên nền gạch đất nung.",
+            art_en: "Every weave node balances negative space with physical matter. Sunlight filtering through lattice meshes paints geometric shadows on terracotta tiles."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Khói Xông Diêm Sinh Chống Nấm Mốc",
+            title_en: "03. Sulfur Bleaching & Anti-Fungal Smoke",
+            sci_vi: "Khí SO2 phản ứng với hơi nước tạo axit sunfurơ có tính khử mạnh, tiêu diệt tế bào nấm mốc và tẩy trắng sắc tố diệp lục còn sót lại trong phôi nan tre.",
+            sci_en: "Sulfur dioxide off-gas reacts with moisture forming sulfurous acid, destroying fungal spores and bleaching residual chlorophyll in green bamboo.",
+            art_vi: "Làn khói vàng đục len lỏi qua từng kẽ vách buồng xông. Mùi diêm sinh nồng cay gắn liền với sự bền bỉ của chiếc giỏ nan qua hàng chục năm tháng.",
+            art_en: "Yellowish fumes creeping through fumigation shed slats. The pungent sting of sulfur ensuring woven baskets outlast generations without decay."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Cuộn Mây Rừng Nằm Nghỉ Dưới Nắng",
+            title_en: "04. Forest Rattan Coils in Courtyard",
+            sci_vi: "Dây mây Calamus có lõi xốp sợi mềm đặc biệt, tự điều hòa độ ẩm theo môi trường xung quanh mà không bị giòn gãy nếu duy trì ẩm độ 12-14%.",
+            sci_en: "Calamus rattan vines harbor porous parenchyma cores, dynamically balancing moisture absorption without embrittlement at 12–14% equilibrium.",
+            art_vi: "Những cuộn mây rừng nằm nghỉ trong sân nắng như những con trăn khổng lồ ngủ say. Chúng mang theo hơi thở của rừng già Tây Bắc về hội ngộ cùng người thợ đồng bằng.",
+            art_en: "Coils of wild rattan basking like slumbering pythons in the sun, carrying mountain breezes into the courtyard of lowland artisans."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Nước Luộc Nan Nâu Đỏ Ngấm Vào Vườn",
+            title_en: "05. Tannin Broth Soil Runoff",
+            sci_vi: "Nước thải từ nồi luộc nan tre chứa nhiều tannin thực vật và tinh bột tự nhiên. Khi ngấm vào đất, chúng tạo nên phức chất hữu cơ màu nâu sẫm giàu dưỡng chất.",
+            sci_en: "Effluent from bamboo boiling pots leaches natural tannins and starches. Soil penetration forms dark brown organo-mineral humus complexes.",
+            art_vi: "Màu nước luộc tre đậm đà như nước trà ủ lâu năm ngấm vào rãnh đất vườn. Cây cối quanh xưởng nhờ đó mà xanh tươi mơn mởn một cách lạ kỳ.",
+            art_en: "Boiling broth rich as aged black tea seeping into orchard soil, quietly nourishing banana plants that shade the weaving shelter."
+          }
+        ]
+      },
+      {
+        id: "ha-thai",
+        name_vi: "Sơn Mài Hạ Thái",
+        name_en: "Ha Thai Lacquer Art",
+        loc_vi: "Thường Tín, Hà Nội",
+        loc_en: "Thuong Tin, Hanoi",
+        desc_vi: "Nghệ thuật cẩn vỏ trứng, thếp vàng quỳ và chiều sâu lớp lớp của nhựa sơn ta.",
+        desc_en: "Eggshell mosaic, gold leaf gilding, and multi-layered urushiol sap lacquer.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Mảnh Vỏ Trứng Cẩn Trên Nền Then",
+            title_en: "01. Eggshell Mosaic on Black Lacquer",
+            sci_vi: "Vỏ trứng gồm Canxi cacbonat (CaCO3) tinh thể calcit. Khi ấn vào lớp sơn then ướt, màng keo urushiol liên kết chặt chẽ với bề mặt khoáng tạo độ bám vĩnh cửu.",
+            sci_en: "Eggshell comprises calcite (CaCO3). Pressed onto wet lacquer, polymerizing urushiol binds to the mineral substrate with high adhesive shear strength.",
+            art_vi: "Từng mảnh vỏ trứng li ti được ấn nhẹ vào lớp sơn đen nhánh bằng mũi dao nhọn. Sự ngẫu nhiên của những vết rạn nứt tự nhiên tạo nên vầng trăng sáng giữa màn đêm.",
+            art_en: "Minute eggshell flakes pressed into midnight lacquer with a blade tip. Spontaneous fracture lines assembling a radiant moon within cosmic darkness."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1579783901586-d88db74b4fe5?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Bàn Tay Mài Nước Với Than Củi Xoan",
+            title_en: "02. Abrasive Wet-Polishing Charcoal",
+            sci_vi: "Mài ướt dùng bột than xoan mềm: Dòng nước làm nguội ma sát và cuốn trôi các vi hạt sơn thải kích thước 5-50 micron, làm lộ dần các lớp màu ẩn sâu.",
+            sci_en: "Wet-sanding utilizes soft wood charcoal slurry to level lacquer coats. Continuous water flushes friction heat, washing micro-particulate paint sludge (5–50 µm).",
+            art_vi: "Bàn tay chai sạn miệt mài mài đi mài lại dưới làn nước lạnh buốt. Mài không phải để làm mất đi, mà để đánh thức vẻ đẹp đang ngủ yên dưới mười mấy lớp sơn vóc.",
+            art_en: "Calloused hands patiently abrading under cold water. Polishing not to erase, but to awaken dormant brilliance buried under twelve coats of lacquer."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Bột Son Chu Sa Khoáng Chất Tự Nhiên",
+            title_en: "03. Cinnabar Red Mineral Pigment",
+            sci_vi: "Bột son khoáng đỏ nghiền từ Chu sa (Thủy ngân sunfua HgS) có độ bền quang hóa tuyệt đối, không bị bạc màu hay oxy hóa dưới tác động của tia cực tím.",
+            sci_en: "Natural cinnabar (HgS) mineral powder exhibits photochemical inertia, preserving saturated scarlet luminosity against ultraviolet degradation.",
+            art_vi: "Màu son đỏ rực như máu của núi rừng kết hợp cùng giọt sơn ta. Một màu đỏ vương giả, uy nghiêm đã từng ngự trị trên ngai vàng và hoành phi câu đối đình làng.",
+            art_en: "Cinnabar red vibrant as the blood of mountains merged with tree sap. A regal crimson that adorned ancestral thrones and temple banners."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Thếp Vàng Quỳ Đập Mỏng Dưới 0.1 Micron",
+            title_en: "04. Beaten Gold Foil Floating on Air",
+            sci_vi: "Lá vàng quỳ đập mỏng đến cấp độ nano (<0.1 µm). Sức căng bề mặt của màng sơn ướt và lực hút tĩnh điện giữ chặt lá vàng cố định phẳng lì trên vóc gỗ.",
+            sci_en: "Beaten gold leaf beaten down to sub-micron gauge (<0.1 µm). Electrostatic forces and lacquer surface tension firmly anchor the gold film onto wood.",
+            art_vi: "Người thợ phải nín thở mỗi khi nhấc lá vàng quỳ. Một hơi thở nhẹ cũng đủ làm cánh vàng mong manh bay lượn như cánh bướm vàng giữa không trung.",
+            art_en: "The artisan holds his breath when lifting gold foil. A single stray breath would send the fragile leaf fluttering like a butterfly in the air."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Bùn Sơn Đọng Lại Đáy Chậu Nước Mài",
+            title_en: "05. Lacquer Silt Settling in Basin",
+            sci_vi: "Cặn lắng chậu mài là hỗn hợp polymer urushiol đông cứng, bột vỏ trứng và khoáng màu. Hỗn hợp trơ hóa học nhưng có độ dính bám cao.",
+            sci_en: "Polishing basin silt is a dense slurry of polymerized urushiol flakes, charcoal powder, CaCO3 dust, and mineral pigments displaying inert yet sticky consistency.",
+            art_vi: "Dưới đáy chậu nước mài là một lớp bùn đen nhánh pha lẫn ánh vàng bạc lấp lánh. Nơi lắng đọng lại cái giá của sự nhọc nhằn để có được một tác phẩm kiệt tác.",
+            art_en: "Beneath the washbasin lies black sediment flecked with gold dust—the quiet sediment of patience that pays for every masterpiece."
+          }
+        ]
+      },
+      {
+        id: "trieu-khuc",
+        name_vi: "Tái Chế Triều Khúc",
+        name_en: "Trieu Khuc Polymers",
+        loc_vi: "Thanh Trì, Hà Nội",
+        loc_en: "Thanh Tri, Hanoi",
+        desc_vi: "Phân loại, tẩy rửa và nung ép hạt nhựa phế thải tái sinh thành vòng lặp nguyên liệu.",
+        desc_en: "Sorting, washing, and extruding secondary polymer scrap.",
+        frames: [
+          {
+            img: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "01. Núi Phế Liệu Nhựa Chờ Phân Loại",
+            title_en: "01. Post-Consumer Plastics Mountain",
+            sci_vi: "Mẫu vật liệu gồm màng PE mật độ thấp và PP cứng. Cần phân loại quang phổ hồng ngoại gần (NIR) để tránh lẫn tạp chất polymer không đồng nhất khi ép đùn.",
+            sci_en: "Collected scrap comprises low-density polyethylene (LDPE) and polypropylene (PP). Near-infrared spectral sorting avoids immiscible polymer blending.",
+            art_vi: "Những núi phế liệu rực rỡ màu sắc xếp tầng tầng lớp lớp. Tàn dư của cuộc sống hiện đại được gom tụ về đây để chuẩn bị cho một cuộc lột xác đầy bất ngờ.",
+            art_en: "Mountains of discarded polymers rising in kaleidoscopic strata. Urban discards gathered here on the threshold of unexpected reincarnation."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "02. Dây Sợi Nhựa Nóng Chảy Ra Khỏi Máy Đùn",
+            title_en: "02. Extrusion Molten Polymer Strands",
+            sci_vi: "Gia nhiệt 190-220°C: Nhựa tái sinh chảy nhớt ép qua đầu đùn thành các sợi filament dài trước khi làm lạnh tức thì trong máng nước lạnh tuần hoàn.",
+            sci_en: "Extrusion at 190–220°C: Secondary polymer transitions into viscoelastic melt, pumped through dies into continuous strands quenched in water baths.",
+            art_vi: "Những sợi nhựa nóng dẻo chảy ra như những sợi bún phát sáng trong đêm. Hơi ấm tỏa ra từ máy đùn hòa vào mồ hôi ướt đẫm lưng áo người công nhân làng nghề.",
+            art_en: "Glowing polymer noodles emerging from extruder mouths like incandescent vermicelli. Heat washing over workers laboring through night shifts."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "03. Vi Nhựa Rò Rỉ Trôi Dạt Dưới Lòng Rãnh",
+            title_en: "03. Escaped Microplastics in Runoff",
+            sci_vi: "Phóng đại 40x: Hàng ngàn mảnh vi nhựa lơ lửng (<1mm) phát sinh từ máy băm rửa cơ học trôi dạt tự do vào mương tiêu thoát chung.",
+            sci_en: "Magnification 40x: Thousands of microplastic fragments (<1mm) sheared during grinding suspend in wash effluent, drifting into drainage ditches.",
+            art_vi: "Dưới kính hiển vi, những hạt nhựa lấp lánh như những mảnh san hô nhân tạo đầy màu sắc. Một vẻ đẹp kỳ dị nhưng cảnh báo về những vết tích nhân tạo khó phai nhòa.",
+            art_en: "Under magnification, microplastic confetti glitters like synthetic coral reef shards. An uncanny beauty marking humanity's indelible geological layer."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "04. Mẻ Hạt Nhựa Tái Sinh Đều Đặn 3mm",
+            title_en: "04. Recycled Granule Pellet Batch",
+            sci_vi: "Hạt nhựa tái sinh sau khi cắt lát có kích thước hạt đồng đều 3mm, sẵn sàng làm nguyên liệu ép khuôn cho các sản phẩm gia dụng và linh kiện phụ trợ.",
+            sci_en: "Pelletized secondary granules sized cleanly at 3mm diameter, ready as compounding feedstock for downstream injection molding.",
+            art_vi: "Những hạt nhựa tròn vo trút xuống bao tải kêu rào rào vui tai. Từ một chiếc túi nylon vứt đi ngoài bãi rác, nay đã trở lại thành nguồn nguyên liệu quý giá.",
+            art_en: "A shower of uniform pellets hissing pleasantly into jute sacks. What was once discarded garbage transformed back into the bloodstream of manufacturing."
+          },
+          {
+            img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1000&q=80",
+            title_vi: "05. Váng Dầu Mỡ Cầu Vồng Trên Mặt Ao Tù",
+            title_en: "05. Stagnant Pond Optical Rainbow Sheen",
+            sci_vi: "Lớp màng dầu khoáng và chất hoạt động bề mặt tạo váng quang học cản trở sự hòa tan oxy từ khí quyển vào tầng nước ngầm của ao hồ địa phương.",
+            sci_en: "Surfactants and machine mineral oils form a thin optical interference film across stagnant ponds, retarding atmospheric oxygen dissolution into water.",
+            art_vi: "Vết dầu mỡ loang lổ khúc xạ ánh mặt trời chiều tà thành đủ sắc cầu vồng trên mặt ao làng cổ. Một bức tranh trừu tượng bi tráng giữa cái cũ và cái mới.",
+            art_en: "An iridescent oil slick refracting evening sunlight into melancholy rainbows over ancient pond waters—an abstract clash between heritage and consumption."
+          }
+        ]
+      }
+    ];
+
+    /* 5 CHUYÊN ĐỀ MÔI TRƯỜNG DỊCH 100% */
+    const envPillarsData = [
+      {
+        id: "wastewater",
+        icon: "droplet",
+        short_vi: "1. Nước Thải & Phẩm Nhuộm",
+        short_en: "1. Wastewater & Dyes",
+        title_vi: "Chuyên Đề 1: Xử Lý Nước Thải Nhuộm & Giặt Nhựa",
+        title_en: "Pillar 1: Textile Dye & Polymer Wastewater Remediation",
+        villages_vi: "Áp dụng trọng điểm: Vạn Phúc • Phong Khê • Triều Khúc",
+        villages_en: "Priority clusters: Van Phuc • Phong Khe • Trieu Khuc",
+        overview_vi: "Nước thải dệt nhuộm và giặt tẩy phế phẩm mang nồng độ hữu cơ COD cao cùng phẩm màu azo bền vững khó phân hủy quang học trong tự nhiên.",
+        overview_en: "Effluent from silk degumming and scrap washing carries elevated COD and persistent synthetic azo dyes that resist ordinary biodegradation.",
+        challenges_vi: [
+          "Gốc màu Azo hữu cơ bền vững kháng oxy hóa tự nhiên trong kênh mương hở.",
+          "Chất xơ mịn và vụn nhựa gây tắc cống tiêu và bồi lắng lòng hồ ao cổ.",
+          "Xút kiềm tẩy rửa làm thay đổi độ pH tự nhiên của nguồn nước mặt tiếp nhận."
+        ],
+        challenges_en: [
+          "Synthetic azo dye rings resist natural biodegradation in open village canals.",
+          "Fine cellulose lint and plastic silt choke agricultural drainage culverts.",
+          "Alkaline caustic soda washings induce severe pH shifts in receiving waterways."
+        ],
+        solutions_vi: [
+          "Keo tụ tạo bông bằng PAC tách loại trên 90% cặn lơ lửng ban đầu.",
+          "Bể oxy hóa bậc cao Fenton (Fe²⁺/H₂O₂) bẻ gãy hoàn toàn mạch màu hữu cơ.",
+          "Hồ sinh học rễ ngập nước trồng cỏ Vetiver và cây sậy lọc nước thứ cấp chi phí thấp."
+        ],
+        solutions_en: [
+          "PAC chemical coagulation settling >90% of primary suspended solids.",
+          "Advanced Fenton oxidation cleaving complex synthetic aromatic color chains.",
+          "Subsurface constructed wetlands planted with Phragmites reeds polishing effluent."
+        ]
+      },
+      {
+        id: "air-emissions",
+        icon: "flame",
+        short_vi: "2. Khí Thải Lò Nung",
+        short_en: "2. Kiln Emissions",
+        title_vi: "Chuyên Đề 2: Khí Thải Lò Nung & Bụi Kim Loại",
+        title_en: "Pillar 2: Kiln Air Emissions & Metal Particulates",
+        villages_vi: "Áp dụng trọng điểm: Bát Tràng • Đại Bái • Phong Khê",
+        villages_en: "Priority clusters: Bat Trang • Dai Bai • Phong Khe",
+        overview_vi: "Khí thải lò than củi và lò nấu đồng nhiệt độ cao phát tán khí SO2, khí CO và bụi siêu mịn PM2.5 vào bầu không khí khu dân cư làng nghề.",
+        overview_en: "Thermal emissions from coal kilns and foundry crucibles release SO2, carbon soot, and PM2.5 particulates into villages.",
+        challenges_vi: [
+          "Bụi mịn và oxit kim loại chì (Pb), kẽm (Zn) ảnh hưởng phế nang người thợ.",
+          "Lò than thủ công hiệu suất nhiệt thấp, phát thải nhiều muội đen CO.",
+          "Khí SO2 kết hợp ẩm độ gây mưa axit cục bộ ăn mòn đình chùa cổ kính."
+        ],
+        challenges_en: [
+          "Respirable lead and zinc aerosols penetrate deep into artisan airways.",
+          "Low thermal efficiency in artisanal coal kilns yields dense soot and waste.",
+          "Sulfur dioxide discharges accelerate weathering on ancient brick temples."
+        ],
+        solutions_vi: [
+          "Chuyển đổi hoàn toàn sang lò nung sử dụng khí gas LPG hoặc lò điện kín.",
+          "Lắp đặt hệ thống chụp hút bụi Cyclone kết hợp tháp hấp thụ rửa khí ướt bằng nước vôi.",
+          "Cảm biến IoT quan trắc nồng độ khói thải tự động cảnh báo theo thời gian thực."
+        ],
+        solutions_en: [
+          "Complete conversion of coal kilns to clean LPG gas or electric furnaces.",
+          "Multi-cyclone dust separators coupled with alkaline wet scrubbers.",
+          "Networked IoT air particulate sensors monitoring ambient quality continuously."
+        ]
+      },
+      {
+        id: "solid-waste",
+        icon: "trash-2",
+        short_vi: "3. Chất Thải Rắn & Tro Xỉ",
+        short_en: "3. Solid Slag & Waste",
+        title_vi: "Chuyên Đề 3: Chất Thải Rắn & Tro Xỉ Luyện Kim",
+        title_en: "Pillar 3: Solid Waste & Metallurgical Slag Recycling",
+        villages_vi: "Áp dụng trọng điểm: Bát Tràng • Đại Bái • Hạ Thái",
+        villages_en: "Priority clusters: Bat Trang • Dai Bai • Ha Thai",
+        overview_vi: "Mảnh gốm sành vỡ, khuôn đất cháy, xỉ đúc đồng và bùn cặn mài sơn mài tích tụ hàng ngày cần phương án tuần hoàn vật liệu xây dựng.",
+        overview_en: "Defective ceramic shards, burnt molds, foundry slag, and lacquer sludge require circular aggregate recycling.",
+        challenges_vi: [
+          "Đất nung phế phẩm lấn chiếm đê điều sông Hồng và lối đi ngõ xóm.",
+          "Nguy cơ rò rỉ kim loại nặng nếu tro xỉ đồng chôn lấp tự phát không cô lập.",
+          "Thiếu bãi tập kết vật liệu phân loại tại nguồn cho các cơ sở thủ công."
+        ],
+        challenges_en: [
+          "Ceramic debris dumped informally encroaches upon irrigation levees.",
+          "Heavy metal leaching risks when smelting slag is dumped on open ground.",
+          "Absence of zoned material staging platforms within dense village clusters."
+        ],
+        solutions_vi: [
+          "Nghiền nhỏ gốm phế phẩm làm cốt liệu gạch bê tông không nung và tấm cách nhiệt.",
+          "Tuyển nổi và hỏa luyện xỉ đúc thu hồi trên 90% hàm lượng đồng sót lại.",
+          "Đóng rắn bùn mài sơn mài bằng xi măng làm gạch lát vỉa hè an toàn."
+        ],
+        solutions_en: [
+          "Crushing ceramic rubble into aggregate for eco-paving blocks and insulation.",
+          "Floatation and secondary smelting recovering >90% of residual copper from slag.",
+          "Cement stabilization and solidification of organic lacquer sludge into pavers."
+        ]
+      },
+      {
+        id: "soil-remediation",
+        icon: "sprout",
+        short_vi: "4. Phục Hồi Thổ Nhưỡng",
+        short_en: "4. Soil Remediation",
+        title_vi: "Chuyên Đề 4: Phục Hồi Đất Nhiễm Kim Loại Nặng",
+        title_en: "Pillar 4: Soil Remediation & Heavy Metal Immobilization",
+        villages_vi: "Áp dụng trọng điểm: Đại Bái • Tái chế chì • Phong Khê",
+        villages_en: "Priority clusters: Dai Bai • Lead Recycling • Phong Khe",
+        overview_vi: "Nước thẩm thấu lâu năm mang ion đồng, chì vào tầng đất mặt nông nghiệp, cần giải pháp cố định bằng than sinh học và thực vật hút độc sinh học.",
+        overview_en: "Decades of seepage transport copper and lead into soils, requiring biochar immobilization and hyperaccumulating flora.",
+        challenges_vi: [
+          "Kim loại nặng liên kết bền vững với hạt sét phù sa, khó rửa trôi tự nhiên.",
+          "Nguy cơ cây hoa màu nông nghiệp lân cận hấp thụ kim loại vào chuỗi thức ăn.",
+          "Phương pháp xúc đất đi tẩy rửa hóa chất có chi phí vượt quá ngân sách."
+        ],
+        challenges_en: [
+          "Heavy metals strongly bind to alluvial clay, resisting natural rain runoff.",
+          "Bioaccumulation hazard as nearby crops take up metals into the food supply.",
+          "Prohibitive civil excavation and chemical soil-washing costs for communes."
+        ],
+        solutions_vi: [
+          "Bổ sung than sinh học Biochar vỏ trấu cố định ion kim loại tự do trong đất.",
+          "Trồng cỏ Vetiver và dương xỉ siêu tích lũy dọc các mương rãnh hút độc.",
+          "Quy hoạch vành đai cây xanh cách ly giữa xưởng đúc và ruộng hoa màu."
+        ],
+        solutions_en: [
+          "Applying rice-husk Biochar to chemically immobilize free metal ions.",
+          "Phytoremediation planting of Vetiver grass and ferns along runoff paths.",
+          "Zoning protective green vegetative shields between smelters and farmlands."
+        ]
+      },
+      {
+        id: "circular-economy",
+        icon: "recycle",
+        short_vi: "5. Kinh Tế Tuần Hoàn",
+        short_en: "5. Circular Economy",
+        title_vi: "Chuyên Đề 5: Kinh Tế Tuần Hoàn Làng Nghề Xanh",
+        title_en: "Pillar 5: Circular Economy & Eco-Village Transition",
+        villages_vi: "Áp dụng trọng điểm: Toàn bộ 7 Làng nghề di sản",
+        villages_en: "Priority clusters: All 7 Heritage Craft Clusters",
+        overview_vi: "Tái cấu trúc chuỗi giá trị thủ công khép kín: phế phẩm của công đoạn này trở thành nguyên liệu nuôi dưỡng công đoạn khác.",
+        overview_en: "Restructuring traditional craft chains into closed-loop cycles where discarded residues become inputs for adjacent workflows.",
+        challenges_vi: [
+          "Quy mô sản xuất hộ gia đình manh mún, thiếu liên kết chuỗi tuần hoàn.",
+          "Thiếu vốn đầu tư hệ thống xử lý nước và khí thải dùng chung cho cả làng.",
+          "Chưa phổ biến chứng chỉ xanh sinh thái 'Eco-Craft' cho xuất khẩu."
+        ],
+        challenges_en: [
+          "Fragmented household workshops lacking collective raw material logistics.",
+          "Capital shortages for communal wastewater and waste infrastructure.",
+          "Absence of certified eco-heritage branding standards for export crafts."
+        ],
+        solutions_vi: [
+          "Quy hoạch cụm công nghiệp làng nghề tập trung có trạm xử lý tuần hoàn trung tâm.",
+          "Xây dựng nhãn hiệu 'Eco-Craft Heritage' nâng cao giá trị văn hóa xuất khẩu.",
+          "Chuyển đổi sang nguyên liệu sinh học tự nhiên và màu nhuộm không độc hại."
+        ],
+        solutions_en: [
+          "Zoning craft parks with collective closed-loop wastewater recycling plants.",
+          "Establishing 'Eco-Craft Heritage' certifications to boost export valuation.",
+          "Transitioning completely to biodegradable ingredients and non-toxic dyes."
+        ]
+      }
+    ];
+
+    /* KHỞI TẠO NỀN CANVAS HẠT BỤI MÔ PHỎNG */
+    function initAmbientParticles() {
+      const canvas = document.getElementById('ambient-particles');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const particleCount = 42;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          radius: Math.random() * 2 + 0.6,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: -(Math.random() * 0.45 + 0.2), // Trôi lơ lửng lên trên
+          alpha: Math.random() * 0.5 + 0.2,
+          decay: Math.random() * 0.005 + 0.002
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.y < 0) {
+            p.y = h;
+            p.x = Math.random() * w;
+          }
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+
+          // Hạt vàng nhũ lung linh
+          const fill = isDarkMode
+            ? `rgba(212, 175, 55, ${p.alpha * 0.6})`
+            : `rgba(146, 104, 26, ${p.alpha * 0.4})`;
+          ctx.fillStyle = fill;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    /* KHỞI TẠO TOÀN TRANG */
+    function init() {
+      document.documentElement.classList.add('dark');
+      initAmbientParticles();
+      renderCraftPills();
+      renderCurrentVillageFrames();
+      renderEnvTabs();
+      renderCurrentEnvContent();
+      applyLanguage(currentLang);
+      lucide.createIcons();
+    }
+
+    /* ĐỔI THEME SÁNG / TỐI */
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+      const html = document.documentElement;
+      const label = document.getElementById('theme-text');
+
+      if (isDarkMode) {
+        html.classList.add('dark');
+        label.innerText = currentLang === 'vi' ? 'SÁNG' : 'LIGHT';
+      } else {
+        html.classList.remove('dark');
+        label.innerText = currentLang === 'vi' ? 'TỐI' : 'DARK';
+      }
+      lucide.createIcons();
+    }
+
+    /* BẬT / TẮT SCIENTIFIC NOTE (2 NÚT RIÊNG BIỆT) */
+    function setScientificNotes(status) {
+      showScientificNotes = status;
+      const onBtn = document.getElementById('btn-note-on');
+      const offBtn = document.getElementById('btn-note-off');
+
+      if (showScientificNotes) {
+        onBtn.className = "seal-pill px-3 py-1 rounded font-mono font-bold text-[11px] bg-amber-700 text-white dark:bg-archDark-gold dark:text-black shadow";
+        offBtn.className = "seal-pill px-3 py-1 rounded font-mono font-medium text-[11px] text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white";
+      } else {
+        offBtn.className = "seal-pill px-3 py-1 rounded font-mono font-bold text-[11px] bg-amber-700 text-white dark:bg-archDark-gold dark:text-black shadow";
+        onBtn.className = "seal-pill px-3 py-1 rounded font-mono font-medium text-[11px] text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white";
+      }
+
+      renderCurrentVillageFrames();
+      lucide.createIcons();
+    }
+
+    /* CHUYỂN ĐỔI NGÔN NGỮ (2 NÚT RIÊNG BIỆT - DỊCH 100%) */
+    function setLanguage(lang) {
+      currentLang = lang;
+      const viBtn = document.getElementById('btn-lang-vi');
+      const enBtn = document.getElementById('btn-lang-en');
+
+      if (lang === 'vi') {
+        viBtn.className = "seal-pill px-3 py-1 rounded font-traditional font-bold text-[11px] bg-amber-700 text-white dark:bg-archDark-gold dark:text-black shadow";
+        enBtn.className = "seal-pill px-3 py-1 rounded font-traditional font-medium text-[11px] text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white";
+      } else {
+        enBtn.className = "seal-pill px-3 py-1 rounded font-traditional font-bold text-[11px] bg-amber-700 text-white dark:bg-archDark-gold dark:text-black shadow";
+        viBtn.className = "seal-pill px-3 py-1 rounded font-traditional font-medium text-[11px] text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white";
+      }
+
+      const themeLabel = document.getElementById('theme-text');
+      themeLabel.innerText = isDarkMode ? (lang === 'vi' ? 'SÁNG' : 'LIGHT') : (lang === 'vi' ? 'TỐI' : 'DARK');
+
+      applyLanguage(lang);
+      renderCraftPills();
+      renderCurrentVillageFrames();
+      renderEnvTabs();
+      renderCurrentEnvContent();
+      lucide.createIcons();
+    }
+
+    function applyLanguage(lang) {
+      const dict = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (dict[k]) el.innerText = dict[k];
+      });
+
+      document.getElementById('brand-subname').innerText = dict.brand_subname;
+      document.getElementById('nav-subtitle').innerText = dict.nav_subtitle;
+      document.getElementById('sec1-script-title').innerText = dict.sec1_script;
+      document.getElementById('sec2-script-title').innerText = dict.sec2_script;
+      document.getElementById('sec3-script-title').innerText = dict.sec3_script;
+      document.getElementById('room1-script').innerText = dict.room1_script;
+      document.getElementById('room2-script').innerText = dict.room2_script;
+      document.getElementById('room3-script').innerText = dict.room3_script;
+
+      // Cập nhật trạng thái nút soundscape
+      const soundText = document.getElementById('soundscape-text');
+      soundText.innerText = soundPlaying ? dict.btn_soundscape_active : dict.btn_soundscape;
+    }
+
+    /* RENDER 7 LÀNG NGHỀ TABS */
+    function renderCraftPills() {
+      const container = document.getElementById('craft-tabs-pills');
+      container.innerHTML = craftsData.map((craft, idx) => `
+        <button onclick="selectVillage(${idx})" class="seal-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-mono whitespace-nowrap transition-all border ${idx === currentCraftIndex ? 'bg-amber-700 text-white dark:bg-archDark-gold dark:text-black font-bold border-amber-800 dark:border-archDark-gold shadow-md' : 'border-archLight-border dark:border-archDark-border bg-archLight-surface dark:bg-archDark-card text-archLight-muted dark:text-archDark-muted hover:text-amber-900 dark:hover:text-white'}">
+          ${currentLang === 'vi' ? craft.name_vi : craft.name_en}
+        </button>
+      `).join('');
+    }
+
+    function selectVillage(idx) {
+      currentCraftIndex = idx;
+      renderCraftPills();
+      renderCurrentVillageFrames();
+      lucide.createIcons();
+    }
+
+    /* RENDER 5 KHUNG TRANH NGHỆ THUẬT DÃN CÁCH RỘNG RÃI */
+    function renderCurrentVillageFrames() {
+      const craft = craftsData[currentCraftIndex];
+      const isVi = currentLang === 'vi';
+      const dict = i18n[currentLang];
+
+      // Banner Village
+      document.getElementById('banner-village-name').innerText = isVi ? craft.name_vi : craft.name_en;
+      document.getElementById('banner-village-loc').innerText = isVi ? craft.loc_vi : craft.loc_en;
+      document.getElementById('banner-village-desc').innerText = isVi ? craft.desc_vi : craft.desc_en;
+
+      const container = document.getElementById('village-frames-container');
+      container.innerHTML = craft.frames.map((frame, fIdx) => {
+        // Lấy ảnh tuỳ chỉnh từ LocalStorage nếu có
+        const customImg = localStorage.getItem(`custom_img_${craft.id}_${fIdx}`);
+        const activeImg = customImg || frame.img;
+
+        // Lấy note đã lưu
+        const savedSci = localStorage.getItem(`sci_note_${craft.id}_${fIdx}`);
+        const savedArt = localStorage.getItem(`art_note_${craft.id}_${fIdx}`);
+        const sciVal = savedSci !== null ? savedSci : (isVi ? frame.sci_vi : frame.sci_en);
+        const artVal = savedArt !== null ? savedArt : (isVi ? frame.art_vi : frame.art_en);
+
+        return `
+          <div class="art-exhibit-frame p-6 sm:p-9 rounded-2xl border border-archLight-border dark:border-archDark-border bg-archLight-surface/90 dark:bg-archDark-panel/90 backdrop-blur-sm space-y-6">
+            
+            <!-- Frame Header & Thay Ảnh -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-archLight-border/60 dark:border-archDark-border/60">
+              <div>
+                <span class="font-mono text-xs text-amber-800 dark:text-archDark-gold tracking-widest uppercase">
+                  ${dict.artwork_prefix} [0${fIdx + 1} / 05]
+                </span>
+                <h3 class="font-traditional text-lg sm:text-2xl font-bold text-amber-950 dark:text-archDark-text mt-0.5">
+                  ${isVi ? frame.title_vi : frame.title_en}
+                </h3>
+              </div>
+              
+              <!-- Nút tải ảnh riêng cho từng khung -->
+              <label class="seal-pill cursor-pointer inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-mono border border-archLight-border dark:border-archDark-border bg-archLight-panel dark:bg-archDark-card text-archLight-text dark:text-archDark-gold hover:border-amber-600 self-start sm:self-auto shadow-sm">
+                <i data-lucide="upload" class="w-3.5 h-3.5 text-amber-700 dark:text-archDark-gold"></i>
+                <span>${dict.btn_replace_photo}</span>
+                <input type="file" accept="image/*" class="hidden" onchange="uploadFramePhoto(event, ${fIdx})">
+              </label>
+            </div>
+
+            <!-- Artwork Display (Rộng rãi, nhấp phóng to) -->
+            <div class="relative overflow-hidden rounded-xl bg-black/40 border border-archLight-border/70 dark:border-archDark-border/70 cursor-pointer group" onclick="openLightbox('${activeImg}', '${isVi ? frame.title_vi : frame.title_en}', '${isVi ? craft.name_vi : craft.name_en}')">
+              <div class="aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden">
+                <img src="${activeImg}" alt="Artwork" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                <span class="text-xs font-mono text-amber-200 flex items-center gap-2">
+                  <i data-lucide="maximize-2" class="w-4 h-4"></i> ${dict.fullscreen_hint}
+                </span>
+              </div>
+            </div>
+
+            <!-- Khối 2 Ô Ghi Chú: Scientific Note & Art Note -->
+            <div class="grid grid-cols-1 ${showScientificNotes ? 'lg:grid-cols-2' : 'grid-cols-1'} gap-6 pt-2">
+              
+              <!-- 1. Scientific Note (Có thể ẩn/hiện bằng nút điều khiển) -->
+              <div class="${showScientificNotes ? '' : 'hidden'} p-4 sm:p-5 rounded-xl border border-emerald-300/70 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-archDark-card space-y-2">
+                <div class="flex items-center justify-between text-xs font-mono text-emerald-900 dark:text-emerald-400 font-bold">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="microscope" class="w-4 h-4 text-emerald-700 dark:text-archDark-verdigris"></i>
+                    <span>${dict.sci_label}</span>
+                  </span>
+                  <span class="text-[10px] text-archLight-muted dark:text-archDark-muted font-normal">Auto-save</span>
+                </div>
+                <textarea 
+                  rows="4" 
+                  oninput="saveNote('sci', ${fIdx}, this.value)"
+                  class="w-full bg-transparent text-xs sm:text-sm font-traditional text-archLight-text dark:text-archDark-text leading-relaxed focus:outline-none resize-y border border-transparent focus:border-emerald-500/30 rounded p-1"
+                  placeholder="...">${sciVal}</textarea>
+              </div>
+
+              <!-- 2. Art Note (Luôn hiển thị) -->
+              <div class="p-4 sm:p-5 rounded-xl border border-amber-300/70 dark:border-amber-900/50 bg-amber-50/50 dark:bg-archDark-card space-y-2">
+                <div class="flex items-center justify-between text-xs font-mono text-amber-900 dark:text-amber-400 font-bold">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="feather" class="w-4 h-4 text-amber-700 dark:text-archDark-gold"></i>
+                    <span>${dict.art_label}</span>
+                  </span>
+                  <span class="text-[10px] text-archLight-muted dark:text-archDark-muted font-normal">Auto-save</span>
+                </div>
+                <textarea 
+                  rows="4" 
+                  oninput="saveNote('art', ${fIdx}, this.value)"
+                  class="w-full bg-transparent text-xs sm:text-sm font-traditional italic text-archLight-text dark:text-archDark-text leading-relaxed focus:outline-none resize-y border border-transparent focus:border-amber-500/30 rounded p-1"
+                  placeholder="...">${artVal}</textarea>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function saveNote(type, frameIdx, text) {
+      const craft = craftsData[currentCraftIndex];
+      localStorage.setItem(`${type}_note_${craft.id}_${frameIdx}`, text);
+    }
+
+    function uploadFramePhoto(e, frameIdx) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const craft = craftsData[currentCraftIndex];
+        localStorage.setItem(`custom_img_${craft.id}_${frameIdx}`, evt.target.result);
+        renderCurrentVillageFrames();
+        lucide.createIcons();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* RENDER 5 CHUYÊN ĐỀ MÔI TRƯỜNG TABS */
+    function renderEnvTabs() {
+      const container = document.getElementById('env-tabs-pills');
+      container.innerHTML = envPillarsData.map((pillar, idx) => `
+        <button onclick="selectEnvPillar(${idx})" class="seal-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-mono whitespace-nowrap transition-all border ${idx === currentEnvIndex ? 'bg-emerald-800 text-white dark:bg-archDark-verdigris dark:text-white font-bold border-emerald-900 shadow-md' : 'border-archLight-border dark:border-archDark-border bg-archLight-surface dark:bg-archDark-card text-archLight-muted dark:text-archDark-muted hover:text-emerald-800 dark:hover:text-white'}">
+          ${currentLang === 'vi' ? pillar.short_vi : pillar.short_en}
+        </button>
+      `).join('');
+    }
+
+    function selectEnvPillar(idx) {
+      currentEnvIndex = idx;
+      renderEnvTabs();
+      renderCurrentEnvContent();
+      lucide.createIcons();
+    }
+
+    function renderCurrentEnvContent() {
+      const pillar = envPillarsData[currentEnvIndex];
+      const isVi = currentLang === 'vi';
+      const dict = i18n[currentLang];
+
+      document.getElementById('env-badge-index').innerText = `${dict.env_badge_prefix} [0${currentEnvIndex + 1}/05]`;
+      document.getElementById('env-target-villages').innerText = isVi ? pillar.villages_vi : pillar.villages_en;
+      document.getElementById('env-title').innerText = isVi ? pillar.title_vi : pillar.title_en;
+      document.getElementById('env-overview').innerText = isVi ? `"${pillar.overview_vi}"` : `"${pillar.overview_en}"`;
+
+      document.getElementById('env-icon-box').innerHTML = `<i data-lucide="${pillar.icon}" class="w-6 h-6"></i>`;
+
+      const chList = isVi ? pillar.challenges_vi : pillar.challenges_en;
+      document.getElementById('env-challenges-list').innerHTML = chList.map(item => `<li>${item}</li>`).join('');
+
+      const solList = isVi ? pillar.solutions_vi : pillar.solutions_en;
+      document.getElementById('env-solutions-list').innerHTML = solList.map(item => `<li>${item}</li>`).join('');
+    }
+
+    /* SOUNDSCAPE MÔ PHỎNG */
+    function toggleSoundscape() {
+      soundPlaying = !soundPlaying;
+      const label = document.getElementById('soundscape-text');
+      const icon = document.getElementById('soundscape-icon');
+
+      if (soundPlaying) {
+        icon.setAttribute('data-lucide', 'volume-x');
+        label.innerText = i18n[currentLang].btn_soundscape_active;
+      } else {
+        icon.setAttribute('data-lucide', 'volume-2');
+        label.innerText = i18n[currentLang].btn_soundscape;
+      }
+      lucide.createIcons();
+    }
+
+    /* LIGHTBOX PHÓNG TO */
+    function openLightbox(url, title, village) {
+      document.getElementById('lightbox-img').src = url;
+      document.getElementById('lightbox-title').innerText = title;
+      document.getElementById('lightbox-loc').innerText = `${i18n[currentLang].specimen_field}: ${village}`;
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
