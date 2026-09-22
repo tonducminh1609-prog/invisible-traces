@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invisible Traces: Dấu Vết Vô Hình - Di sản làng nghề & Nhiếp ảnh tư liệu</title>
+  <meta name="description" content="Invisible Traces: Triển lãm nhiếp ảnh tư liệu & khảo sát khoa học sinh thái 7 làng nghề truyền thống Việt Nam.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Marck+Script&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0d0b;
+      --card-bg: #181512;
+      --card-inner: #221e1a;
+      --text: #ece4d8;
+      --text-muted: #a69888;
+      --accent: #c5a059;
+      --accent-bright: #e6c27e;
+      --border: rgba(197, 160, 89, 0.25);
+      --font-body: 'Be Vietnam Pro', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --font-cursive: 'Marck Script', cursive;
+      --font-elegance: 'Cormorant Garamond', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+    /* Grand Header */
+    header {
+      background: radial-gradient(circle at 50% 20%, #29231c 0%, #14110e 65%, #0a0807 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 0 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      background: rgba(197, 160, 89, 0.12);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .curved-title-box {
+      max-width: 860px;
+      margin: 0 auto 10px;
+    }
+
+    .curved-title-box svg {
+      width: 100%;
+      height: auto;
+      max-height: 160px;
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,0.6));
+    }
+
+    .curved-subtitle {
+      font-family: var(--font-cursive);
+      font-size: 32px;
+      color: var(--accent-bright);
+      margin-bottom: 16px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .header-desc {
+      font-family: var(--font-elegance);
+      font-size: 19px;
+      max-width: 780px;
+      margin: 0 auto 30px;
+      color: #dfd4c5;
+      font-style: italic;
+    }
+
+    /* Panoramic 3-Tab Navigator */
+    .tab-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .tab-nav { grid-template-columns: 1fr; }
+    }
+
+    .tab-btn {
+      background: #191613;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 105px;
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      background: linear-gradient(180deg, #2b241c 0%, #1a1612 100%);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(197, 160, 89, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .tab-btn .tab-num {
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .tab-btn .tab-title {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .tab-btn .tab-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: var(--font-elegance);
+      font-style: italic;
+    }
+
+    /* Content Sections */
+    .tab-section {
+      display: none;
+      padding: 40px 0 60px;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    /* 7 Villages Bar */
+    .villages-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 30px;
+    }
+
+    .villages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 10px;
+    }
+
+    .village-chip {
+      background: #14110e;
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .village-chip:hover, .village-chip.active {
+      background: #2b2319;
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .village-chip .v-num {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--accent);
+      display: block;
+    }
+
+    .village-chip .v-name {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-serif);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Artwork Cards Stack */
+    .artwork-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 36px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+    }
+
+    .card-ribbon {
+      background: #201b16;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .card-body { grid-template-columns: 1fr; }
+    }
+
+    .img-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      aspect-ratio: 4/3;
+    }
+
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .img-wrap img:hover { transform: scale(1.04); }
+
+    .art-intro-box {
+      margin-top: 16px;
+      background: var(--card-inner);
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .art-intro-box h4 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .art-intro-box p {
+      font-size: 13px;
+      color: #dfd4c5;
+      line-height: 1.6;
+    }
+
+    /* Scientific Notes */
+    .note-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .note-header h4 {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--accent-bright);
+    }
+
+    .note-block {
+      background: #14110e;
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .note-block .note-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .note-block p {
+      font-size: 13px;
+      color: #cfc1ae;
+      line-height: 1.6;
+    }
+
+    /* Exhibition Narrative */
+    .exhibition-statement {
+      background: linear-gradient(135deg, #241e17 0%, #171310 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+
+    .statement-quote {
+      font-family: var(--font-elegance);
+      font-size: 26px;
+      font-style: italic;
+      color: var(--accent-bright);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .chapter-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 800px) {
+      .chapter-card { grid-template-columns: 1fr; }
+    }
+
+    .chapter-text { padding: 32px; }
+    .chapter-num {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .chapter-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .chapter-sub {
+      font-family: var(--font-elegance);
+      font-size: 15px;
+      color: var(--accent-bright);
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .chapter-img {
+      position: relative;
+      background: #000;
+    }
+
+    .chapter-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 280px;
+    }
+
+    /* Environmental Topics */
+    .env-topic-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 30px;
+    }
+
+    .env-topic-card h3 {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--accent-bright);
+      margin-bottom: 12px;
+    }
+
+    .env-grid-solutions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .solution-item {
+      background: #15120f;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .solution-item h5 {
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .param-table th, .param-table td {
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .param-table th {
+      background: #201b16;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: #0a0908;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: #fff; color: #000; }
+      .tab-nav, .villages-bar { display: none; }
+      .tab-section { display: block !important; }
+      .artwork-card, .chapter-card, .env-topic-card { border: 1px solid #ccc; background: #fff; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="top-badge">FINE ART PHOTOGRAPHY & ENVIRONMENTAL ARCHIVE</div>
+
+      <div class="curved-title-box">
+        <svg viewBox="0 0 960 170">
+          <defs>
+            <linearGradient id="goldWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#bf953f" />
+              <stop offset="25%" stop-color="#fcf6ba" />
+              <stop offset="50%" stop-color="#b38728" />
+              <stop offset="75%" stop-color="#fbf5b7" />
+              <stop offset="100%" stop-color="#aa771c" />
+            </linearGradient>
+            <path id="curvedTitlePath" d="M 30,115 C 240,40 420,135 600,75 C 740,25 860,110 930,95" fill="none" />
+          </defs>
+          <text class="font-serif" style="font-size: 70px; letter-spacing: 0.09em; font-weight: 900; text-transform: uppercase;" fill="url(#goldWaveGrad)" stroke="#594116" stroke-width="1.2px">
+            <textPath href="#curvedTitlePath" startOffset="50%" textAnchor="middle">
+              Invisible Traces
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <div class="curved-subtitle">Dấu Vết Vô Hình</div>
+      <p class="header-desc">
+        Hành trình nhiếp ảnh nghệ thuật qua 7 làng nghề truyền thống Bắc Bộ, soi chiếu bằng khoa học vật liệu và giải pháp bảo vệ môi trường sinh thái.
+      </p>
+
+      <!-- 3 Direct Tabs Navigation -->
+      <nav class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('tab-gallery', this)">
+          <div>
+            <div class="tab-num">TAB 01</div>
+            <div class="tab-title">Ảnh Nghệ Thuật</div>
+            <div class="tab-sub">7 Làng nghề & Scientific Notes</div>
+          </div>
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-exhibition', this)">
+          <div>
+            <div class="tab-num">TAB 02</div>
+            <div class="tab-title">Triển Lãm</div>
+            <div class="tab-sub">Hành trình 4 chương & Tuyên ngôn</div>
+          </div>
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-environment', this)">
+          <div>
+            <div class="tab-num">TAB 03</div>
+            <div class="tab-title">Tác Động Môi Trường</div>
+            <div class="tab-sub">5 Chuyên đề xử lý & QCVN</div>
+          </div>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ==================== TAB 01: ẢNH NGHỆ THUẬT ==================== -->
+    <section id="tab-gallery" class="tab-section active">
+      <!-- 7 Villages Filter Chips -->
+      <div class="villages-bar">
+        <div style="font-size: 11px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; font-weight: 600;">
+          Khảo sát 7 làng nghề truyền thống:
+        </div>
+        <div class="villages-grid">
+          
+            <button class="village-chip active" onclick="filterVillage('bat-trang', this)">
+              <span class="v-num">01</span>
+              <span class="v-name">Gốm Bát Tràng</span>
+            </button>
+          
+            <button class="village-chip " onclick="filterVillage('van-phuc', this)">
+              <span class="v-num">02</span>
+              <span class="v-name">Lụa Vạn Phúc</span>
+            </button>
+          
+            <button class="village-chip " onclick="filterVillage('phu-vinh', this)">
+              <span class="v-num">03</span>
+              <span class="v-name">Mây Tre Đan Phú Vinh</span>
+            </button>
+          
+            <button class="village-chip " onclick="filterVillage('dai-bai', this)">
+              <span class="v-num">04</span>
+              <span class="v-name">Đúc Đồng Đại Bái</span>
+            </button>
+          
+            <button class="village-chip " onclick="filterVillage('chuong', this)">
+              <span class="v-num">05</span>
+              <span class="v-name">Nón Chuông</span>
+            </button>
+          
+            <button class="village-chip " onclick="filterVillage('quang-phu-cau', this)">
+              <span class="v-num">06</span>
+              <span class="v-name">Tăm Hương Quảng Phú Cầu</span>
+            </button>
+          
+            <button class="village-chip " onclick="filterVillage('dong-ho', this)">
+              <span class="v-num">07</span>
+              <span class="v-name">Tranh Đông Hồ & Giấy Dó</span>
+            </button>
+          
+        </div>
+      </div>
+
+      <!-- Artworks List -->
+      <div id="artworks-container">
+        
+          <article class="artwork-card" data-village="bat-trang">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #1</strong> &bull; 2024 &bull; Ảnh đen trắng Silver Gelatin & Scan phim 120mm
+              </div>
+              <div>ID: art-bt-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=80" alt="Vết Tàn Của Lửa (Lò Bầu Cổ)" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Vết Tàn Của Lửa (Lò Bầu Cổ)</h4>
+                  <p>Khoảnh khắc ánh sáng xiên rọi qua vòm gạch loang lổ muội than của một lò bầu cổ Bát Tràng đã ngừng hoạt động hơn hai thập kỷ.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Muội than bám trên tường gạch chịu lửa gồm 82% Carbon vô định hình và 11% Silic đioxit (SiO2), phản ánh quá trình đốt cháy không hoàn toàn của than bùn và than cám ở nhiệt độ 1.150°C.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Quá trình chuyển hóa từ nhiệt năng củi/than sang khí hóa lỏng (LPG) đã triệt tiêu 98% phát thải khói đen, đưa cấu trúc gạch lò trở thành di sản bảo tàng.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="bat-trang">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #2</strong> &bull; 2024 &bull; Chụp macro quang học sắc nét cao (Optical Macro)
+              </div>
+              <div>ID: art-bt-2</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80" alt="Men Rạn & Vết Oxit Đồng" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Men Rạn & Vết Oxit Đồng</h4>
+                  <p>Cận cảnh đường nứt vi mô trên bình gốm men rạn cổ Bát Tràng, nơi khoáng chất tự nhiên kết tinh tạo nên hoa văn như mai rùa.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Sự chênh lệch hệ số giãn nở nhiệt giữa xương gốm đất sét Kaolin (Al2O3·2SiO2·2H2O) và lớp men tràng thạch pha tro trấu (hệ số chênh lệch Δα ≈ 3.2×10^-6 K^-1).</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Các hạt men lơ lửng lắng tụ chậm trong lòng mương dẫn. Khi qua bể lắng keo tụ phèn PAC, 94% kim loại nặng kết tủa thành bánh bùn khô an toàn.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="van-phuc">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #3</strong> &bull; 2024 &bull; Nhiếp ảnh tài liệu tốc độ cao (High-speed Documentary)
+              </div>
+              <div>ID: art-vp-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1607344645866-009c320c5ab8?auto=format&fit=crop&w=1200&q=80" alt="Dòng Chảy Tơ Vàng (Sắc Nhuộm Đoài Phương)" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Dòng Chảy Tơ Vàng (Sắc Nhuộm Đoài Phương)</h4>
+                  <p>Những dải lụa Vạn Phúc phơi trong gió sớm bên rặng tre, phản chiếu sắc óng ả đặc trưng của sợi tơ tằm dệt hoa văn chìm.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Sợi tơ tự nhiên cấu tạo từ Protein Fibroin (75%) và Sericin (25%). Quá trình tẩy keo tơ giải phóng peptide hòa tan vào dung dịch kiềm nhẹ pH 8.5–9.2.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Phẩm nhuộm azo hóa tổng hợp phân rã chậm dưới ánh nắng tự nhiên. Chuyển đổi sang chất trợ nhuộm gốc enzym phân hủy sinh học giúp giảm 70% tải lượng hữu cơ.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="van-phuc">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #4</strong> &bull; 2024 &bull; Ảnh đen trắng tương phản cao (High-contrast Monochromatic)
+              </div>
+              <div>ID: art-vp-2</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" alt="Thoi Đưa Trong Khung Cửi Cổ" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Thoi Đưa Trong Khung Cửi Cổ</h4>
+                  <p>Bàn tay nghệ nhân luồn sợi chỉ tơ trên khung cửi gỗ mun trăm tuổi, nơi những đường vân tinh xảo được định hình từng nhịp dệt.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Độ bền kéo đứt của tơ tằm đạt tới 500 MPa nhờ chuỗi liên kết hydro dày đặc giữa các tấm gấp nếp beta trong cấu trúc tinh thể protein fibroin.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Khung dệt thủ công truyền thống không tiêu thụ điện năng hóa thạch và không gây ô nhiễm tiếng ồn, là biểu tượng của sản xuất carbon thấp.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="phu-vinh">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #5</strong> &bull; 2024 &bull; Ảnh tĩnh vật nghệ thuật (Fine Art Still Life)
+              </div>
+              <div>ID: art-pv-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1590736969955-71cc94801759?auto=format&fit=crop&w=1200&q=80" alt="Khúc Uốn Của Nan Mây" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Khúc Uốn Của Nan Mây</h4>
+                  <p>Những sợi mây chuốt mỏng manh như sợi tóc uốn lượn dưới vệt nắng chiều, chuẩn bị cho công đoạn đan hoa văn chim muông.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Mô cơ giới của thân mây giàu sợi Cellulose (chiếm 52%) và Lignin (28%). Tính dẻo dai đàn hồi cao cho phép uốn cong bán kính cực tiểu < 5mm mà không gãy vỡ tế bào.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Thay thế xông lưu huỳnh bằng dung dịch dầu neem tự nhiên và phòng sấy năng lượng mặt trời giúp loại bỏ hoàn toàn khí SO2 độc hại.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="dai-bai">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #6</strong> &bull; 2024 &bull; Ảnh phóng sự tư liệu phơi sáng nhanh (Expressive Documentary)
+              </div>
+              <div>ID: art-db-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80" alt="Huyết Lửa Rót Đồng" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Huyết Lửa Rót Đồng</h4>
+                  <p>Dòng đồng nóng chảy 1.100°C tuôn chảy từ nồi nấu vào khuôn đất cát xốp, tỏa sáng rực rỡ trong gian xưởng cổ kính tối màu.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Hợp kim đồng thau truyền thống (Đồng Cu 70–80%, Kẽm Zn 15–25%, Thiếc Sn 3–5%). Điểm nóng chảy đạt khoảng 1.083°C đối với đồng nguyên chất và ~980°C đối với hợp kim pha kẽm.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Sử dụng hệ thống chụp hút khói kèm tháp rửa khí Venturi và buồng lọc túi vải giúp thu hồi 96% bụi oxit kim loại để tái nấu luyện tuần hoàn.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="chuong">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #7</strong> &bull; 2024 &bull; Ảnh đen trắng Fine Art (Archival Pigment Print)
+              </div>
+              <div>ID: art-nc-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80" alt="Bản Hòa Âm Của Lá Lụi" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Bản Hòa Âm Của Lá Lụi</h4>
+                  <p>Những chồng lá lụi trắng ngần trải trên nong tre trong nắng mai bên triền đê sông Đáy của làng Chuông.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Lá cọ/lá lụi non chứa sáp thực vật cuticle bảo vệ tự nhiên, giúp nón có khả năng chống thấm nước mưa tuyệt vời nhờ hiệu ứng cánh sen tự nhiên (Hydrophobic surface).</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Làng nghề hiện nay đã áp dụng công nghệ phơi ủ nắng tự nhiên và làm ẩm bằng hơi nước sạch, giữ trọn vẹn màu trắng ngà tự nhiên của lá mà không cần hóa chất.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="quang-phu-cau">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #8</strong> &bull; 2024 &bull; Nhiếp ảnh màu tài liệu sắc độ cao (Fine Art Color Photography)
+              </div>
+              <div>ID: art-qpc-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80" alt="Rực Rỡ Đóa Hoa Chu Sa" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Rực Rỡ Đóa Hoa Chu Sa</h4>
+                  <p>Hàng trăm bó chân hương nhuộm màu đỏ son xòe tròn như những đóa cúc rực rỡ phơi dưới nắng ấm sân đình.</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Bột hương se nhang gồm bột quế, hồi, trầm hương phối trộn cùng chất kết dính tự nhiên chiết xuất từ vỏ cây bời lời (Machilus odoratissima) giàu pectin sinh học.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Hệ thống hút bụi cyclone tại các máy chẻ tăm tre giúp giảm 85% lượng bụi gỗ phát tán vào không khí, đồng thời tận dụng mùn tre làm phân bón sinh học.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+          <article class="artwork-card" data-village="dong-ho">
+            <div class="card-ribbon">
+              <div>
+                <strong style="color: var(--accent);">Bản khắc #9</strong> &bull; 2024 &bull; Ảnh chi tiết bề mặt vật liệu (Micro-Texture Fine Art)
+              </div>
+              <div>ID: art-dh-1</div>
+            </div>
+            <div class="card-body">
+              <!-- Left Column: Art Photo & Intro -->
+              <div>
+                <div class="img-wrap">
+                  <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80" alt="Vết Vỏ Sò & Lấp Lánh Giấy Điệp" loading="lazy">
+                </div>
+                <div class="art-intro-box">
+                  <h4>Vết Vỏ Sò & Lấp Lánh Giấy Điệp</h4>
+                  <p>Bề mặt giấy dó quét bột điệp lấp lánh như vảy cá dưới ánh sáng xiên, lưu giữ trọn vẹn nét mộc mạc của bức tranh "Đám Cưới Chuột".</p>
+                </div>
+              </div>
+
+              <!-- Right Column: Scientific Notes Only -->
+              <div>
+                <div class="note-header">
+                  <h4>Ghi chú khoa học (Scientific Notes)</h4>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#9679;</span> Cấu trúc Hóa - Lý & Thành phần vật chất
+                  </div>
+                  <p>Bột điệp được làm từ vỏ con sò điệp (Spondylus) nghiền siêu mịn chứa Canxi cacbonat (CaCO3 dạng tinh thể Aragonit) phản xạ ánh sáng lấp lánh tự nhiên mà không cần phụ gia hóa chất.</p>
+                </div>
+
+                <div class="note-block">
+                  <div class="note-label">
+                    <span>&#128293;</span> Tiến trình biến đổi nhiệt & Tinh thể hóa
+                  </div>
+                  <p>Mực in tranh hoàn toàn từ cây cỏ: màu vàng từ hoa hoè, đỏ từ sỏi son đất sét, đen từ than lá tre cháy âm ỉ - một quy trình tuần hoàn không rác thải độc hại.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        
+      </div>
+    </section>
+
+    <!-- ==================== TAB 02: TRIỂN LÃM ==================== -->
+    <section id="tab-exhibition" class="tab-section">
+      <div class="exhibition-statement">
+        <div class="statement-quote">"Bảo tồn di sản không thể tách rời bảo vệ môi trường sống của chính những người thợ làm ra di sản ấy."</div>
+        <p style="font-size: 15px; color: #dfd4c5; line-height: 1.8; margin-bottom: 20px;">
+          Tại sao lại là "Dấu Vết Vô Hình"? Mỗi sản phẩm thủ công tinh xảo – từ chiếc bát gốm men rạn, tấc lụa tơ tằm óng ả đến chiếc nón lá trắng ngần – đều là kết tinh của hàng thế kỷ tài hoa. Nhưng song hành cùng vẻ đẹp rực rỡ đó là những "dấu vết vô hình" mà mắt thường hiếm khi nhìn thấy: vi hạt oxit kim loại lắng sâu vào mạch nước ngầm, làn khói nung trầm tích trên ngói rêu phong, và những dòng biến đổi sinh thái đang lặng thầm diễn ra. Triển lãm không nhằm phê phán, mà như một cây cầu kết nối giữa ánh mắt trân trọng cái đẹp của nghệ thuật với sự tỉnh thức của khoa học môi trường, nhằm cùng cộng đồng tìm kiếm con đường xanh cho di sản trường tồn.
+        </p>
+        <div style="font-size: 13px; color: var(--accent);">
+          <strong>Giám tuyển:</strong> Đào Thu Hương &bull; Nhiếp ảnh gia tư liệu & Nhà nghiên cứu độc lập
+        </div>
+      </div>
+
+      <!-- 4 Chapters -->
+      
+        <article class="chapter-card">
+          <div class="chapter-text">
+            <div class="chapter-num">CHƯƠNG 01</div>
+            <h3 class="chapter-title">Khởi Hành: Đi Tìm Những Vết Khói Trong Ký Ức</h3>
+            <div class="chapter-sub">Chuyến độc hành qua 7 vùng đất trăm năm bên triền sông Hồng & sông Đáy</div>
+            <p style="font-size: 14px; color: #d0c3b2; line-height: 1.7; margin-bottom: 16px;">Dự án bắt đầu từ những buổi sáng mờ sương tại Bát Tràng và Vạn Phúc vào cuối thu 2023. Mang theo máy ảnh medium format và các thiết bị đo đạc chỉ số môi trường cầm tay, tôi bước vào những con ngõ hẹp nơi tiếng thoi dệt lạch cạch vang vọng suốt hàng trăm năm. Điều đánh động tôi đầu tiên không phải là những món đồ trưng bày trong tủ kính hào nhoáng, mà là những bức tường gạch nhuốm màu than đá, vệt nước nhuộm đỏ tím trên rãnh thoát nước cũ, và đôi bàn tay chai sần nhuốm màu chàm của người nghệ nhân lớn tuổi.</p>
+            <div style="font-size: 13px; font-style: italic; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 12px;">
+              "Mỗi khung hình được phơi sáng với sự tôn kính tuyệt đối dành cho người thợ thủ công, phản ánh chân thực nhịp sống mộc mạc không tô vẽ."
+            </div>
+          </div>
+          <div class="chapter-img">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" alt="Khởi Hành: Đi Tìm Những Vết Khói Trong Ký Ức" loading="lazy">
+          </div>
+        </article>
+      
+        <article class="chapter-card">
+          <div class="chapter-text">
+            <div class="chapter-num">CHƯƠNG 02</div>
+            <h3 class="chapter-title">Đối Thoại: Nghệ Thuật & Khoa Học Khảo Sát</h3>
+            <div class="chapter-sub">Cú bắt tay giữa ống kính nhiếp ảnh và các mẫu trắc nghiệm vi sinh, quang phổ</div>
+            <p style="font-size: 14px; color: #d0c3b2; line-height: 1.7; margin-bottom: 16px;">Khác biệt lớn nhất của triển lãm "Invisible Traces" là việc đặt song hành giữa bức ảnh nghệ thuật khổ lớn và "Scientific Note" (Ghi chú Khoa học). Tôi cùng các đồng sự chuyên ngành sinh thái học đã thu thập mẫu nước mặt, đo đạc nồng độ bụi siêu mịn PM2.5 tại hiện trường và phân tích thành phần oxit khoáng trong men gốm. Khi người xem ngắm một bức ảnh nghệ thuật tuyệt đẹp, họ được dẫn dắt sang một chiều kích sâu hơn: hiểu được cấu trúc hóa học của chất tạo màu, sức chịu tải của môi trường, và những tổn thất thầm lặng mà người thợ phải gánh chịu.</p>
+            <div style="font-size: 13px; font-style: italic; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 12px;">
+              "Khoa học không làm mất đi tính thơ mộng của nghệ thuật; ngược lại, nó trao cho nghệ thuật sức mạnh lay động nhận thức và thúc đẩy hành động thực tế."
+            </div>
+          </div>
+          <div class="chapter-img">
+            <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80" alt="Đối Thoại: Nghệ Thuật & Khoa Học Khảo Sát" loading="lazy">
+          </div>
+        </article>
+      
+        <article class="chapter-card">
+          <div class="chapter-text">
+            <div class="chapter-num">CHƯƠNG 03</div>
+            <h3 class="chapter-title">Không Gian Trưng Bày: Ánh Sáng Của Đất & Khói</h3>
+            <div class="chapter-sub">Thiết kế không gian triển lãm với chất liệu Dó, đất nung và hương thơm thảo mộc</div>
+            <p style="font-size: 14px; color: #d0c3b2; line-height: 1.7; margin-bottom: 16px;">Buổi triển lãm được bài trí với 3 phân khu trải nghiệm: Khu 1 "Dấu Ấn Trầm Tích" (những bức ảnh đen trắng bạc muối về các lò nung cổ và giếng nước ngầm); Khu 2 "Sự Biến Chuyển Của Màu Sắc" (dãy ảnh dọc khổ lớn tương tác cùng bảng ghi chú khoa học); và Khu 3 "Cánh Cổng Tương Lai" (nơi trưng bày các vật liệu sinh học mới, lụa nhuộm củ nâu, mây tre xử lý nhiệt và các mô hình bể lọc nước vi sinh khép kín). Không gian phảng phất hương trầm tự nhiên của Quảng Phú Cầu, mang lại trải nghiệm đa giác quan cho hàng ngàn lượt khách ghé thăm.</p>
+            <div style="font-size: 13px; font-style: italic; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 12px;">
+              "Khán giả không chỉ "xem" ảnh mà được chạm vào mẫu đất nung gốm rạn, ngửi mùi thảo mộc và trực tiếp lắng nghe câu chuyện của nghệ nhân."
+            </div>
+          </div>
+          <div class="chapter-img">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80" alt="Không Gian Trưng Bày: Ánh Sáng Của Đất & Khói" loading="lazy">
+          </div>
+        </article>
+      
+        <article class="chapter-card">
+          <div class="chapter-text">
+            <div class="chapter-num">CHƯƠNG 04</div>
+            <h3 class="chapter-title">Tiếng Vọng: Những Bước Chuyển Xanh</h3>
+            <div class="chapter-sub">Khi triển lãm trở thành điểm hẹn của nghệ nhân, nhà khoa học và thế hệ trẻ</div>
+            <p style="font-size: 14px; color: #d0c3b2; line-height: 1.7; margin-bottom: 16px;">Điều hạnh phúc nhất của tôi trong suốt 3 tháng mở cửa triển lãm là được đón tiếp chính những bác nghệ nhân từ Bát Tràng, Vạn Phúc, Đại Bái lên thành phố tham quan. Nhìn thấy xưởng nghề thân thương của mình trên những bức ảnh trang trọng và cùng thảo luận với các chuyên gia môi trường về cách lắp bể lắng PAC hay làm đệm sinh học, ánh mắt họ tràn đầy niềm tin. Triển lãm đã khởi động một quỹ hỗ trợ chuyển đổi xanh nhỏ cho 3 xưởng dệt lụa và 2 hợp tác xã mây tre đan.</p>
+            <div style="font-size: 13px; font-style: italic; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 12px;">
+              "Một triển lãm nghệ thuật chỉ thực sự trọn vẹn khi nó để lại những hạt mầm đổi thay tích cực cho cộng đồng mà nó khắc họa."
+            </div>
+          </div>
+          <div class="chapter-img">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80" alt="Tiếng Vọng: Những Bước Chuyển Xanh" loading="lazy">
+          </div>
+        </article>
+      
+    </section>
+
+    <!-- ==================== TAB 03: TÁC ĐỘNG MÔI TRƯỜNG ==================== -->
+    <section id="tab-environment" class="tab-section">
+      <div style="text-align: center; max-width: 750px; margin: 0 auto 30px;">
+        <h2 style="font-family: var(--font-serif); font-size: 28px; color: var(--accent-bright); margin-bottom: 8px;">
+          5 Chuyên Đề Khảo Sát & Giải Pháp Xử Lý
+        </h2>
+        <p style="color: var(--text-muted); font-size: 14px;">
+          Các phân tích thực nghiệm và giải pháp công nghệ tuần hoàn sinh thái ứng dụng cho các làng nghề.
+        </p>
+      </div>
+
+      
+        <div class="env-topic-card">
+          <div style="font-size: 12px; font-family: monospace; color: var(--accent); font-weight: 700; margin-bottom: 4px;">
+            Chuyên đề 01: Nguồn Nước
+          </div>
+          <h3>Xử Lý Nước Thải & Hóa Chất Nhuộm / Men Gốm</h3>
+          <p style="font-style: italic; color: #c4b59f; font-size: 14px; margin-bottom: 14px;">
+            Công nghệ keo tụ điện hóa, màng lọc sinh học MBBR và trung hòa kiềm trong dệt lụa và gốm sứ
+          </p>
+          <p style="font-size: 14px; color: #e0d5c5; line-height: 1.7; margin-bottom: 16px;">
+            <strong>Hiện trạng:</strong> Tại các làng nghề dệt nhuộm như Vạn Phúc hay gốm sứ Bát Tràng, nước thải chứa hàm lượng chất hữu cơ cao (protein sericin, tinh bột hồ vải), độ màu từ phẩm nhuộm azo tổng hợp và oxit kim loại từ men tráng. Nước xả trực tiếp ra mương thủy lợi làm cạn kiệt oxy hòa tan (DO < 1.5 mg/L), gây hiện tượng phú dưỡng và lắng đọng bùn độc.
+          </p>
+          <div style="background: #14110e; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+            <strong style="color: var(--accent); font-size: 13px; display: block; margin-bottom: 6px;">Cơ chế xử lý kỹ thuật:</strong>
+            <p style="font-size: 13px; color: #cfc1ae; line-height: 1.6;">Quy trình xử lý chuẩn 4 bước: (1) Bể tách rác & điều hòa lưu lượng (pH cân bằng 6.5–7.5); (2) Bể keo tụ tạo bông dùng Polyaluminium Chloride (PAC) kết hợp màng Polymer anion để kết tủa hạt màu và hạt men mịn; (3) Bể hiếu khí dính bám MBBR với giá thể vi sinh di động phân hủy hợp chất hữu cơ hòa tan; (4) Cột lọc than hoạt tính hấp phụ màu và vi lượng kim loại trước khi tái sử dụng cho tưới tiêu nông nghiệp.</p>
+          </div>
+
+          <h5 style="color: #fff; font-size: 14px; margin-top: 20px;">Giải pháp kỹ thuật cụ thể:</h5>
+          <div class="env-grid-solutions">
+            
+              <div class="solution-item">
+                <h5>Hệ thống Keo tụ Điện hóa (Electro-coagulation)</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Sử dụng điện cực nhôm/sắt tạo ion flocculant tại chỗ mà không cần bổ sung hóa chất lỏng, hiệu quả cao trong khử màu nước dệt.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: 92% - 96% khử màu</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Bể Lắng Lọc Men Tuần Hoàn Khép Kín</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Thu hồi nước rửa men sứ qua hệ thống lắng tầng mỏng Lamella, tách bột men thô để tái sử dụng làm men lót sản phẩm thứ cấp.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: 88% tái tuần hoàn nước</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Bãi Lọc Trồng Cây Nhân Tạo (Constructed Wetlands)</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Sử dụng cây thủy sinh (bèo lục bình, sậy, cỏ vetiver) xử lý thứ cấp nước thải sinh hoạt kết hợp sản xuất thủ công.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: 75% giảm BOD / COD</div>
+              </div>
+            
+          </div>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Chỉ số quan trắc</th>
+                <th>Đơn vị</th>
+                <th>Thực trạng thô</th>
+                <th>Chuẩn sau xử lý</th>
+                <th>Quy chuẩn áp dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><strong>Độ màu (Color Units)</strong></td>
+                  <td style="color: var(--text-muted);">Pt-Co</td>
+                  <td style="color: #f87171;">850 - 1.400</td>
+                  <td style="color: #4ade80;">45 - 60</td>
+                  <td style="color: var(--accent);">≤ 50 (QCVN 40:2011/BTNMT - Cột A)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Nhu cầu oxy hóa học (COD)</strong></td>
+                  <td style="color: var(--text-muted);">mg/L</td>
+                  <td style="color: #f87171;">450 - 850</td>
+                  <td style="color: #4ade80;">65 - 80</td>
+                  <td style="color: var(--accent);">≤ 75 (QCVN 40:2011/BTNMT - Cột A)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Tổng chất rắn lơ lửng (TSS)</strong></td>
+                  <td style="color: var(--text-muted);">mg/L</td>
+                  <td style="color: #f87171;">380 - 620</td>
+                  <td style="color: #4ade80;">35 - 45</td>
+                  <td style="color: var(--accent);">≤ 50 (QCVN 40:2011/BTNMT - Cột A)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Kim loại nặng (Đồng Cu, Chì Pb)</strong></td>
+                  <td style="color: var(--text-muted);">mg/L</td>
+                  <td style="color: #f87171;">1.2 - 2.8</td>
+                  <td style="color: #4ade80;">< 0.05</td>
+                  <td style="color: var(--accent);">≤ 0.1 (Cu), ≤ 0.05 (Pb)</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="env-topic-card">
+          <div style="font-size: 12px; font-family: monospace; color: var(--accent); font-weight: 700; margin-bottom: 4px;">
+            Chuyên đề 02: Khí Quyển
+          </div>
+          <h3>Xử Lý Khí Thải, Khói Bụi & Lò Nung Tiết Kiệm Năng Lượng</h3>
+          <p style="font-style: italic; color: #c4b59f; font-size: 14px; margin-bottom: 14px;">
+            Xử lý khí SO2, CO, bụi oxit kim loại lò đúc đồng và chuyển đổi lò nung sạch
+          </p>
+          <p style="font-size: 14px; color: #e0d5c5; line-height: 1.7; margin-bottom: 16px;">
+            <strong>Hiện trạng:</strong> Hoạt động nung gốm sứ truyền thống bằng than cám, đúc đồng bằng lò than cốc (Đại Bái), và xông lưu huỳnh tẩy trắng mây tre nón lá từng là nguồn phát thải khổng lồ khí SO2, CO, hydrocacbon thơm và bụi siêu mịn PM2.5. Tỷ lệ mắc bệnh đường hô hấp mãn tính tại các làng nghề này từng cao hơn 35% so với mức trung bình nông thôn.
+          </p>
+          <div style="background: #14110e; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+            <strong style="color: var(--accent); font-size: 13px; display: block; margin-bottom: 6px;">Cơ chế xử lý kỹ thuật:</strong>
+            <p style="font-size: 13px; color: #cfc1ae; line-height: 1.6;">Hệ thống kiểm soát khí thải tích hợp gồm: (1) Chụp hút nhiệt cục bộ tại miệng lò nấu kim loại với vận tốc đón gió > 1.2 m/s; (2) Thiết bị lắng bụi quán tính Cyclone tách các hạt xỉ than thô; (3) Tháp hấp thụ sủi bọt rửa khí ngược dòng bằng dung dịch vôi sữa Ca(OH)2 để trung hòa hoàn toàn khí axit (SO2, HCl); (4) Bộ lọc túi vải xung khí nén PTFE lọc bụi siêu mịn PM2.5 trước khi thoát ra ống khói cao 18m.</p>
+          </div>
+
+          <h5 style="color: #fff; font-size: 14px; margin-top: 20px;">Giải pháp kỹ thuật cụ thể:</h5>
+          <div class="env-grid-solutions">
+            
+              <div class="solution-item">
+                <h5>Lò Nung Khí Hóa Lỏng Gas Hồi Lưu Nhiệt</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Sử dụng đầu đốt áp suất cao điều khiển nhiệt độ tự động, tận dụng nhiệt khí thải sấy khô mộc trước khi vào lò nung.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Giảm 98% bụi khói than</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Tháp Lọc Khí Đúc Kim Loại Ướt Kiềm Hóa</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Xử lý triệt để khói độc oxit kẽm (ZnO), đồng (CuO) và khí lưu huỳnh sinh ra khi nung chảy đồng phế liệu.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: 93% khử khí độc SO2/CO</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Phòng Sấy Mây Tre Bằng Hơi Nước Áp Suất</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Thay thế hoàn toàn việc đốt lưu huỳnh diêm sinh bằng công nghệ hấp sấy hơi nước 120°C tiệt trùng nấm mốc và mối mọt.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Triệt tiêu 100% khí SO2</div>
+              </div>
+            
+          </div>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Chỉ số quan trắc</th>
+                <th>Đơn vị</th>
+                <th>Thực trạng thô</th>
+                <th>Chuẩn sau xử lý</th>
+                <th>Quy chuẩn áp dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><strong>Khí Lưu huỳnh đioxit (SO2)</strong></td>
+                  <td style="color: var(--text-muted);">mg/m³</td>
+                  <td style="color: #f87171;">1.45 - 2.80</td>
+                  <td style="color: #4ade80;">0.12 - 0.20</td>
+                  <td style="color: var(--accent);">≤ 0.35 (QCVN 05:2023/BTNMT)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Bụi lơ lửng toàn phần (TSP / PM10)</strong></td>
+                  <td style="color: var(--text-muted);">mg/m³</td>
+                  <td style="color: #f87171;">4.8 - 9.2</td>
+                  <td style="color: #4ade80;">0.18 - 0.25</td>
+                  <td style="color: var(--accent);">≤ 0.30 (QCVN 05:2023/BTNMT)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Khí Cacbon monoxit (CO)</strong></td>
+                  <td style="color: var(--text-muted);">mg/m³</td>
+                  <td style="color: #f87171;">35 - 75</td>
+                  <td style="color: #4ade80;">8 - 14</td>
+                  <td style="color: var(--accent);">≤ 30 (QCVN 05:2023/BTNMT)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Bụi kim loại (Cu, Zn, Pb)</strong></td>
+                  <td style="color: var(--text-muted);">mg/m³</td>
+                  <td style="color: #f87171;">0.85 - 2.10</td>
+                  <td style="color: #4ade80;">< 0.05</td>
+                  <td style="color: var(--accent);">≤ 0.15 (QCVN 19:2009/BTNMT)</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="env-topic-card">
+          <div style="font-size: 12px; font-family: monospace; color: var(--accent); font-weight: 700; margin-bottom: 4px;">
+            Chuyên đề 03: Kinh Tế Tuần Hoàn
+          </div>
+          <h3>Phân Loại & Tái Chế Tuần Hoàn Chất Thải Rắn Làng Nghề</h3>
+          <p style="font-style: italic; color: #c4b59f; font-size: 14px; margin-bottom: 14px;">
+            Tái sinh xỉ than, đất nung vụn vỡ, đầu mẩu tre gỗ và bã kén tơ tằm
+          </p>
+          <p style="font-size: 14px; color: #e0d5c5; line-height: 1.7; margin-bottom: 16px;">
+            <strong>Hiện trạng:</strong> Mỗi năm, các làng nghề thủ công phát sinh hàng trăm nghìn tấn chất thải rắn đặc thù: mảnh gốm sứ vỡ, khuôn thạch cao hỏng (Bát Tràng), mạt cưa, đầu mẩu gỗ tre (Phú Vinh, Quảng Phú Cầu), xỉ đồng và cát đúc (Đại Bái). Việc đổ bừa bãi ra chân đê ven sông gây ô nhiễm cảnh quan và chiếm dụng diện tích đất canh tác quý báu.
+          </p>
+          <div style="background: #14110e; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+            <strong style="color: var(--accent); font-size: 13px; display: block; margin-bottom: 6px;">Cơ chế xử lý kỹ thuật:</strong>
+            <p style="font-size: 13px; color: #cfc1ae; line-height: 1.6;">Áp dụng nguyên lý Kinh tế tuần hoàn 3R (Reduce - Reuse - Recycle): (1) Phân loại tại nguồn phát sinh giữa phế liệu vô cơ trơ và phụ phẩm hữu cơ sinh khối; (2) Nghiền mịn gốm sứ vỡ làm cốt liệu chịu nhiệt phối trộn cho gạch không nung nhẹ; (3) Ép mùn cưa và tăm tre vụn thành viên nén nhiên liệu sinh khối (Biomass Pellets) với nhiệt trị cao (> 4.200 kcal/kg); (4) Tách thu hồi kim loại từ xỉ đúc bằng tuyển từ và trọng lực.</p>
+          </div>
+
+          <h5 style="color: #fff; font-size: 14px; margin-top: 20px;">Giải pháp kỹ thuật cụ thể:</h5>
+          <div class="env-grid-solutions">
+            
+              <div class="solution-item">
+                <h5>Nghiền Tái Sinh Mảnh Gốm & Khuôn Thạch Cao</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Nghiền mảnh gốm làm cốt liệu chịu mài mòn cho gạch lát vỉa hè trang trí di sản; thu hồi bột thạch cao làm chậm đông xi măng.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Tái chế 80% gốm phế phẩm</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Dây Chuyền Ép Viên Nén Mùn Tre Sinh Khối</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Thu gom mùn cưa từ các cơ sở vót tăm hương và đan tre, sấy khô và ép đùn thành viên nén đốt thay thế than đá.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Tận dụng 95% phụ phẩm tre</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Thu Hồi Hạt Đồng Từ Xỉ Đúc & Cát Khuôn</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Nghiền sàng cát khuôn cũ để tái sử dụng làm khuôn đúc lần sau, thu hồi các mẩu đồng kim loại sót lại trong xỉ lò.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Tiết kiệm 60% cát đúc mới</div>
+              </div>
+            
+          </div>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Chỉ số quan trắc</th>
+                <th>Đơn vị</th>
+                <th>Thực trạng thô</th>
+                <th>Chuẩn sau xử lý</th>
+                <th>Quy chuẩn áp dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><strong>Tỷ lệ thu gom phân loại tại nguồn</strong></td>
+                  <td style="color: var(--text-muted);">%</td>
+                  <td style="color: #f87171;">25% - 35%</td>
+                  <td style="color: #4ade80;">85% - 90%</td>
+                  <td style="color: var(--accent);">≥ 85% (Nghị định 08/2022/NĐ-CP)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Tỷ lệ tái sinh phụ phẩm hữu cơ sinh khối</strong></td>
+                  <td style="color: var(--text-muted);">%</td>
+                  <td style="color: #f87171;">15%</td>
+                  <td style="color: #4ade80;">78%</td>
+                  <td style="color: var(--accent);">≥ 70% (Chiến lược tăng trưởng xanh)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Đất canh tác bị lấn chiếm bởi phế thải</strong></td>
+                  <td style="color: var(--text-muted);">Hecta</td>
+                  <td style="color: #f87171;">12 - 18 ha/xã</td>
+                  <td style="color: #4ade80;">< 1 ha/xã</td>
+                  <td style="color: var(--accent);">0 ha chiếm dụng trái phép</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="env-topic-card">
+          <div style="font-size: 12px; font-family: monospace; color: var(--accent); font-weight: 700; margin-bottom: 4px;">
+            Chuyên đề 04: Vật Liệu Xanh
+          </div>
+          <h3>Thay Thế Hóa Chất Độc Hại Bằng Vật Liệu Sinh Học Bản Địa</h3>
+          <p style="font-style: italic; color: #c4b59f; font-size: 14px; margin-bottom: 14px;">
+            Phục hồi màu thảo mộc tự nhiên, dầu neem sinh học và triết lý nguyên bản Đông Hồ
+          </p>
+          <p style="font-size: 14px; color: #e0d5c5; line-height: 1.7; margin-bottom: 16px;">
+            <strong>Hiện trạng:</strong> Sự xuất hiện ồ ạt của các hóa chất công nghiệp giá rẻ trong thế kỷ XX (như phẩm màu azo, chất tẩy trắng lưu huỳnh, dung dịch crom đánh bóng kim loại, keo tổng hợp chứa formaldehyde) đã dần thay thế các vật liệu tự nhiên truyền thống. Điều này không chỉ gây hại đến sức khỏe hô hấp và da liễu của nghệ nhân mà còn làm mất đi tính độc bản nguyên sơ của hàng thủ công Việt.
+          </p>
+          <div style="background: #14110e; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+            <strong style="color: var(--accent); font-size: 13px; display: block; margin-bottom: 6px;">Cơ chế xử lý kỹ thuật:</strong>
+            <p style="font-size: 13px; color: #cfc1ae; line-height: 1.6;">Ứng dụng hóa học xanh (Green Chemistry) chiết xuất từ thảo mộc: (1) Sắc tố thực vật tự nhiên giàu flavonoid, anthocyanin và tannin (củ nâu Dioscorea cirrhosa, lá chàm Indigofera tinctoria, hạt dành dành Gardenia jasminoides) tạo màu bền vững mà không thải kim loại nặng; (2) Dầu thực vật Neem (Azadirachtin) và giấm gỗ (Pyroligneous acid) ức chế bào tử nấm mốc tự nhiên cho tre mây; (3) Keo sinh học từ tinh bột biến tính và chất nhầy bời lời thay thế formaldehyde.</p>
+          </div>
+
+          <h5 style="color: #fff; font-size: 14px; margin-top: 20px;">Giải pháp kỹ thuật cụ thể:</h5>
+          <div class="env-grid-solutions">
+            
+              <div class="solution-item">
+                <h5>Kỹ Thuật Nhuộm Lụa Bằng Thảo Mộc Bản Địa</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Chiết xuất màu từ củ nâu, vỏ tràm, lá bàng và chất gắn màu hữu cơ (phèn chua, nước tro bếp) đạt chứng nhận Oeko-Tex Standard 100.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Không tồn dư hóa chất độc hại</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Bảo Quản Tre Nứa Bằng Dầu Thực Vật & Muối Khoáng</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Ngâm mây tre trong dung dịch muối borat tự nhiên kết hợp xoa tinh dầu chống mối mọt, hoàn toàn không cần xông diêm sinh.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Bảo vệ sản phẩm > 5 năm không mốc</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Men Sứ Tự Nhiên Từ Tro Trấu & Khoáng Thạch Sông Hồng</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Nghiên cứu lại công thức men tro cổ truyền (tro trấu, tro củi xoan kết hợp bùn phù sa phù sa sông Hồng) không pha chì và oxit tổng hợp.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: 100% nguyên liệu an toàn thực phẩm</div>
+              </div>
+            
+          </div>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Chỉ số quan trắc</th>
+                <th>Đơn vị</th>
+                <th>Thực trạng thô</th>
+                <th>Chuẩn sau xử lý</th>
+                <th>Quy chuẩn áp dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><strong>Tồn dư Amin thơm phân tử phân hủy từ phẩm Azo</strong></td>
+                  <td style="color: var(--text-muted);">mg/kg</td>
+                  <td style="color: #f87171;">18 - 45 mg/kg</td>
+                  <td style="color: #4ade80;">Không phát hiện (ND)</td>
+                  <td style="color: var(--accent);">< 30 mg/kg (QCVN 01:2017/BCT)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Nồng độ Chì (Pb) thôi nhiễm từ đồ gốm tiếp xúc thực phẩm</strong></td>
+                  <td style="color: var(--text-muted);">mg/L</td>
+                  <td style="color: #f87171;">0.8 - 2.5 mg/L</td>
+                  <td style="color: #4ade80;">< 0.01 mg/L</td>
+                  <td style="color: var(--accent);">≤ 0.5 mg/L (QCVN 12-4:2015/BYT)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Formaldehyde trong keo dán ép gỗ thủ công</strong></td>
+                  <td style="color: var(--text-muted);">mg/m³</td>
+                  <td style="color: #f87171;">1.8 - 3.2 mg/m³</td>
+                  <td style="color: #4ade80;">< 0.05 mg/m³</td>
+                  <td style="color: var(--accent);">≤ 0.12 mg/m³ (QCVN 02:2019/BYT)</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+        <div class="env-topic-card">
+          <div style="font-size: 12px; font-family: monospace; color: var(--accent); font-weight: 700; margin-bottom: 4px;">
+            Chuyên đề 05: Thể Chế & Tương Lai
+          </div>
+          <h3>Quy Hoạch Làng Nghề Xanh & Mô Hình Sinh Thái Bền Vững</h3>
+          <p style="font-style: italic; color: #c4b59f; font-size: 14px; margin-bottom: 14px;">
+            Tách rời khu sản xuất khỏi khu dân cư, hạ tầng xử lý tập trung và chứng chỉ di sản xanh
+          </p>
+          <p style="font-size: 14px; color: #e0d5c5; line-height: 1.7; margin-bottom: 16px;">
+            <strong>Hiện trạng:</strong> Phần lớn làng nghề miền Bắc phát triển tự phát đan xen trực tiếp trong không gian sinh hoạt gia đình từ bao đời nay. Tiếng búa đập, khói bụi lò nấu, nước thải nhuộm chảy ngay dưới hiên nhà, đe dọa sức khỏe của chính thế hệ con cháu nghệ nhân. Việc bảo tồn di sản đòi hỏi tư duy quy hoạch không gian mới: di dời công đoạn ô nhiễm vào cụm công nghiệp tập trung mà vẫn giữ được cái hồn văn hóa của làng.
+          </p>
+          <div style="background: #14110e; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+            <strong style="color: var(--accent); font-size: 13px; display: block; margin-bottom: 6px;">Cơ chế xử lý kỹ thuật:</strong>
+            <p style="font-size: 13px; color: #cfc1ae; line-height: 1.6;">Mô hình "Làng nghề Sinh thái - Văn hóa" (Eco-Cultural Craft Village): (1) Phân vùng không gian 3 lớp: Vùng lõi di sản (trưng bày, trình diễn nghề, du lịch trải nghiệm), Vùng đệm sinh thái (cây xanh lọc không khí), và Vùng sản xuất tập trung khép kín (có trạm xử lý nước và khí thải dùng chung); (2) Hệ thống giám sát môi trường IoT tự động truyền dữ liệu quan trắc 24/7; (3) Bộ tiêu chí "Di sản Xanh" (Green Craft Certification) gắn nhãn sinh thái cho sản phẩm thủ công xuất khẩu.</p>
+          </div>
+
+          <h5 style="color: #fff; font-size: 14px; margin-top: 20px;">Giải pháp kỹ thuật cụ thể:</h5>
+          <div class="env-grid-solutions">
+            
+              <div class="solution-item">
+                <h5>Cụm Công Nghiệp Làng Nghề Tập Trung Có Hạ Tầng Xanh</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Di dời các công đoạn phát sinh nhiệt, khói và tiếng ồn lớn (nấu đúc đồng, xẻ đá, mộc máy) ra ngoài khu dân cư làng cổ.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Giảm 90% ô nhiễm khu dân cư</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Trạm Xử Lý Nước Thải Tập Trung Tự Động Hóa IoT</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Thu gom toàn bộ nước thải từ các cơ sở sản xuất rải rác qua mạng lưới đường ống riêng biệt, kiểm soát chất lượng xả thải theo thời gian thực.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Đảm bảo 100% nước xả đạt chuẩn A</div>
+              </div>
+            
+              <div class="solution-item">
+                <h5>Hệ Thống Dán Nhãn Sinh Thái "Green Craft Vietnam"</h5>
+                <p style="font-size: 12px; color: #a69888; line-height: 1.5; margin-bottom: 8px;">Cấp chứng nhận nguồn gốc xuất xứ xanh cho các sản phẩm thủ công cam kết không dùng hóa chất cấm, có dấu chân carbon thấp.</p>
+                <div style="font-size: 11px; color: #7ee787; font-weight: 600;">Hiệu suất: Gia tăng 30-50% giá trị xuất khẩu</div>
+              </div>
+            
+          </div>
+
+          <table class="param-table">
+            <thead>
+              <tr>
+                <th>Chỉ số quan trắc</th>
+                <th>Đơn vị</th>
+                <th>Thực trạng thô</th>
+                <th>Chuẩn sau xử lý</th>
+                <th>Quy chuẩn áp dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><strong>Tỷ lệ cơ sở sản xuất gây ô nhiễm được di dời vào cụm</strong></td>
+                  <td style="color: var(--text-muted);">%</td>
+                  <td style="color: #f87171;">15% - 25%</td>
+                  <td style="color: #4ade80;">80% - 95%</td>
+                  <td style="color: var(--accent);">100% cơ sở gây ô nhiễm nghiêm trọng</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Tỷ lệ nước thải làng nghề được xử lý tập trung</strong></td>
+                  <td style="color: var(--text-muted);">%</td>
+                  <td style="color: #f87171;">10%</td>
+                  <td style="color: #4ade80;">85%</td>
+                  <td style="color: var(--accent);">≥ 80% (Chiến lược bảo vệ môi trường 2030)</td>
+                </tr>
+              
+                <tr>
+                  <td><strong>Không gian cây xanh & mặt nước cảnh quan</strong></td>
+                  <td style="color: var(--text-muted);">% diện tích</td>
+                  <td style="color: #f87171;">4% - 6%</td>
+                  <td style="color: #4ade80;">18% - 22%</td>
+                  <td style="color: var(--accent);">≥ 15% diện tích quy hoạch nông thôn mới</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Invisible Traces &bull; Dấu Vết Vô Hình</strong></p>
+      <p style="font-size: 12px; margin-top: 6px;">
+        Được xuất ra định dạng HTML độc lập &bull; Khả dụng ngoại tuyến (Offline Compatible)
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 400, behavior: 'smooth' });
+    }
+
+    // Village filtering in Tab 1
+    function filterVillage(vId, chip) {
+      document.querySelectorAll('.village-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const cards = document.querySelectorAll('.artwork-card');
+      cards.forEach(card => {
+        if (vId === 'all' || card.getAttribute('data-village') === vId) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Default select first village on load
+    document.addEventListener('DOMContentLoaded', () => {
+      filterVillage('bat-trang', document.querySelector('.village-chip'));
+    });
+  </script>
+</body>
+</html>
